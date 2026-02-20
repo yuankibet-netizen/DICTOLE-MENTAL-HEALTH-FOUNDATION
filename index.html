@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DICTOLE | Mental Health Foundation</title>
+  
+<meta name="description" content="Dictole is a modern web application built to promote mental health awareness and provide support services.">
+  <meta name="theme-color" content="#0b0b0b" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="icon" href="dictole-logo.png" type="image/png" />
+  <link rel="stylesheet" href="style.css" />
+  <!-- GSAP + ScrollTrigger for Cinematic Animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body class="page-load">
+
+  <!-- OVERLAY PANELS -->
+  <!-- About Panel - Drops from top -->
+  <div class="overlay-panel" id="panel-about">
+    <div class="panel-header">
+      <button class="panel-close" aria-label="Close panel">&times;</button>
+      <button class="panel-close-text">Close</button>
+    </div>
+    <div class="panel-content">
+      <h2>About DICTOLE</h2>
+      <p>The DICTOLE Mental Health Foundation is a non-profit organization dedicated to promoting mental well-being, increasing awareness about mental health concerns, and offering essential resources to individuals and communities facing mental health challenges.</p>
+      <p>Established in 2024, our mission is to empower individuals and communities by raising mental health awareness, providing accessible mental health services, developing compassionate support networks, and advocating for policies that enable mental health equity and inclusion for all.</p>
+      <p>We believe that everyone should have access to the support, understanding, and care required to live happy, meaningful lives—since mental health is equally as vital as physical health.</p>
+    </div>
+  </div>
+
+  <!-- Services Panel - Slides from right -->
+  <div class="overlay-panel" id="panel-services">
+    <div class="panel-header">
+      <button class="panel-close" aria-label="Close panel">&times;</button>
+      <button class="panel-close-text">Close</button>
+    </div>
+    <div class="panel-content">
+      <h2>Our Services</h2>
+      <div class="panel-cards">
+        <div class="panel-card">
+          <h3>Educational Outreach & Awareness</h3>
+          <p>One-on-one and group therapy with licensed professionals.</p>
+        </div>
+        <div class="panel-card">
+          <h3>Support Services</h3>
+          <p>Mindfulness, resilience, and self-care training.</p>
+        </div>
+        <div class="panel-card">
+          <h3>Advocacy</h3>
+          <p>Always available when you need someone to talk to.</p>
+        </div>
+        <div class="panel-card">
+          <h3>Community Engagement</h3>
+          <p>Workshops, webinars, and community events.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mission/Vision Panel - Slides from left -->
+  <div class="overlay-panel" id="panel-mission">
+    <div class="panel-header">
+      <button class="panel-close" aria-label="Close panel">&times;</button>
+      <button class="panel-close-text">Close</button>
+    </div>
+    <div class="panel-content">
+      <h2>Mission · Vision · Goals · Values</h2>
+      <div class="mission-content">
+        <div class="mission-item">
+          <h3>MISSION</h3>
+          <p>To empower individuals and communities by raising mental health awareness, providing accessible mental health services, developing compassionate support networks, and pushing for policies that enable mental health equity and inclusion for all.</p>
+        </div>
+        <div class="mission-item">
+          <h3>VISION</h3>
+          <p>To create a world where every individual has access to the support and resources needed to achieve mental well-being, free from stigma and barriers.</p>
+        </div>
+        <div class="mission-item">
+          <h3>GOALS</h3>
+          <p>Our goals include fostering a supportive environment, promoting education, and advocating for mental health policies that benefit everyone.</p>
+        </div>
+        <div class="mission-item">
+          <h3>VALUES</h3>
+          <p>Compassion, integrity, inclusivity, respect, and empowerment guide everything we do. We are committed to creating safe, non-judgmental spaces for healing and growth.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Appointment Panel - Slides from bottom -->
+  <div class="overlay-panel" id="panel-appointment">
+    <div class="panel-header">
+      <button class="panel-close" aria-label="Close panel">&times;</button>
+      <button class="panel-close-text" data-i18n="close">Close</button>
+    </div>
+    <div class="panel-content">
+      <h2 data-i18n="bookAppointment">Book an Appointment</h2>
+      <p data-i18n="bookAppointmentDesc">Schedule a consultation with our mental health professionals. We’ll confirm your booking by phone or email.</p>
+      <form id="appointment-form">
+        <label for="apt-name" class="sr-only">Name</label>
+        <input id="apt-name" type="text" name="name" data-i18n-placeholder="yourName" placeholder="Your Name" required maxlength="100" autocomplete="name" />
+        <label for="apt-email" class="sr-only">Email</label>
+        <input id="apt-email" type="email" name="email" placeholder="Your Email" required maxlength="254" autocomplete="email" />
+        <label for="apt-phone" class="sr-only">Phone</label>
+        <input id="apt-phone" type="tel" name="phone" data-i18n-placeholder="yourPhone" placeholder="Your Phone" maxlength="20" autocomplete="tel" />
+        <label for="apt-service">Service</label>
+        <select id="apt-service" name="service" required aria-label="Select service type">
+          <option value="" data-i18n="selectService">Select service</option>
+          <option value="therapy">Individual Therapy</option>
+          <option value="group">Group Support</option>
+          <option value="consultation">Initial Consultation</option>
+          <option value="workshop">Workshop / Webinar</option>
+        </select>
+        <label for="apt-date" class="sr-only">Preferred date</label>
+        <input id="apt-date" type="date" name="date" required min="" aria-label="Preferred date" />
+        <label for="apt-time">Preferred time</label>
+        <select id="apt-time" name="time" aria-label="Preferred time of day">
+          <option value="morning">Morning (9am–12pm)</option>
+          <option value="afternoon">Afternoon (12pm–5pm)</option>
+          <option value="evening">Evening (5pm–7pm)</option>
+        </select>
+        <label for="apt-notes" class="sr-only">Additional notes</label>
+        <textarea id="apt-notes" name="message" data-i18n-placeholder="additionalNotes" placeholder="Additional notes (optional)" maxlength="1000"></textarea>
+        <button type="submit" data-i18n="requestBooking">Request Booking</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Contact Panel - Slides from bottom -->
+  <div class="overlay-panel" id="panel-contact">
+    <div class="panel-header">
+      <button class="panel-close" aria-label="Close panel">&times;</button>
+      <button class="panel-close-text">Close</button>
+    </div>
+    <div class="panel-content">
+      <h2>Contact Us</h2>
+      <p>Call us directly or leave your message below and we'll get back to you.</p>
+      <p class="contact-phone">📞 +2547 90076248</p>
+      <form id="panel-contact-form">
+        <input type="text" name="name" placeholder="Your Name" required maxlength="100" autocomplete="name" />
+        <input type="email" name="email" placeholder="Your Email" required maxlength="254" autocomplete="email" />
+        <textarea name="message" placeholder="Your Message" maxlength="5000"></textarea>
+        <button type="submit">Send Message</button>
+        <a href="tel:+254790076248" class="call-btn">📞 Call Now</a>
+      </form>
+    </div>
+  </div>
+
+  <!-- Share Modal -->
+  <div class="overlay-panel" id="panel-share">
+    <div class="panel-header">
+      <button class="panel-close" aria-label="Close panel">&times;</button>
+      <button class="panel-close-text">Close</button>
+    </div>
+    <div class="panel-content">
+      <h2>Share DICTOLE</h2>
+      <p>Help spread mental health awareness by sharing our foundation with others.</p>
+      
+      <div class="share-options">
+        <div class="share-option">
+          <h3>📱 WhatsApp Status</h3>
+          <p>Share as WhatsApp status update</p>
+          <div class="share-templates">
+            <button class="template-btn" data-platform="whatsapp" data-template="awareness">
+              Mental Health Awareness
+            </button>
+            <button class="template-btn" data-platform="whatsapp" data-template="services">
+              Our Services
+            </button>
+            <button class="template-btn" data-platform="whatsapp" data-template="support">
+              Get Support
+            </button>
+          </div>
+        </div>
+        
+        <div class="share-option">
+          <h3>📸 Instagram Post</h3>
+          <p>Create Instagram post with caption</p>
+          <div class="share-templates">
+            <button class="template-btn" data-platform="instagram" data-template="mission">
+              Our Mission
+            </button>
+            <button class="template-btn" data-platform="instagram" data-template="community">
+              Community Support
+            </button>
+            <button class="template-btn" data-platform="instagram" data-template="wellness">
+              Wellness Tips
+            </button>
+          </div>
+        </div>
+        
+        <div class="share-option">
+          <h3>🔗 General Sharing</h3>
+          <p>Copy link or share on other platforms</p>
+          <div class="share-actions">
+            <button class="copy-link-btn" id="copyLinkBtn">📋 Copy Website Link</button>
+            <button class="share-general-btn" data-platform="twitter">🐦 Twitter</button>
+            <button class="share-general-btn" data-platform="facebook">📘 Facebook</button>
+            <button class="share-general-btn" data-platform="linkedin">💼 LinkedIn</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="share-preview" id="sharePreview">
+        <h4>Preview:</h4>
+        <div class="preview-content" id="previewContent">
+          Select a template to preview
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pictorial Panel - Slides from right -->
+  <div class="overlay-panel" id="panel-pictorial">
+    <div class="panel-header">
+      <button class="panel-close" aria-label="Close panel">&times;</button>
+      <button class="panel-close-text">Close</button>
+    </div>
+    <div class="panel-content">
+      <h2>Pictorial Gallery</h2>
+      <p>Mental health awareness through imagery. Moments of hope, healing, and connection.</p>
+      
+      <div class="gallery pictorial-gallery">
+        <div class="gallery-item reveal reveal-delay-1">
+          <img src="IMG-20260215-WA0005.jpg" alt="DICTOLE Mental Health — Community support">
+        </div>
+        <div class="gallery-item reveal reveal-delay-2">
+          <img src="IMG-20260215-WA0006.jpg" alt="DICTOLE Mental Health — Wellness and growth">
+        </div>
+        <div class="gallery-item reveal reveal-delay-3">
+          <img src="IMG-20260215-WA0007.jpg" alt="DICTOLE Mental Health — Hope and healing">
+        </div>
+        <div class="gallery-item reveal reveal-delay-2">
+          <img src="IMG-20260215-WA0006.jpg" alt="DICTOLE Mental Health — Support">
+        </div>
+        <div class="gallery-item reveal reveal-delay-3">
+          <img src="IMG-20260215-WA0007.jpg" alt="DICTOLE Mental Health — Together">
+        </div>
+        <div class="gallery-item reveal reveal-delay-1">
+          <img src="IMG-20260215-WA0005.jpg" alt="DICTOLE Mental Health — Awareness">
+        </div>
+        <div class="gallery-item reveal reveal-delay-3">
+          <img src="IMG-20260215-WA0007.jpg" alt="DICTOLE Mental Health — Care">
+        </div>
+        <div class="gallery-item reveal reveal-delay-1">
+          <img src="IMG-20260215-WA0005.jpg" alt="DICTOLE Mental Health — Community">
+        </div>
+        <div class="gallery-item reveal reveal-delay-2">
+          <img src="IMG-20260215-WA0006.jpg" alt="DICTOLE Mental Health — Wellbeing">
+        </div>
+      </div>
+
+      <p class="gallery-credit reveal">DICTOLE Mental Health Foundation — Moments of impact.</p>
+      
+      <div class="pictorial-actions">
+        <a href="https://www.instagram.com/dictole_mental_health/" target="_blank" rel="noopener" class="btn">Follow on Instagram 📸</a>
+        <a href="https://wa.me/254790076248" target="_blank" rel="noopener" class="btn">Share Your Story 💬</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chat Panel - Professional Design -->
+  <div class="overlay-panel" id="panel-chat">
+    <div class="panel-header">
+      <button class="panel-close" aria-label="Close panel">&times;</button>
+      <button class="panel-close-text">Close</button>
+    </div>
+    <div class="panel-content">
+      <h2>💬 Professional Mental Health Support</h2>
+      <p>I'm your AI mental health assistant, trained to provide compassionate support and guidance. I'm here to listen 24/7.</p>
+      
+      <!-- Professional Chat Background -->
+      <div class="chat-bg-animation">
+        <div class="chat-particle particle-1">💭</div>
+        <div class="chat-particle particle-2">🧠</div>
+        <div class="chat-particle particle-3">💝</div>
+        <div class="chat-particle particle-4">🌟</div>
+        <div class="chat-particle particle-5">🤝</div>
+        <div class="chat-particle particle-6">💪</div>
+        <div class="chat-particle particle-7">🌈</div>
+        <div class="chat-particle particle-8">✨</div>
+      </div>
+
+      <!-- Professional Chat Container -->
+      <div class="chat-container">
+        <!-- Chat Box -->
+        <div class="chat-box" id="chatBox">
+          <div class="chat-welcome">
+            <div class="welcome-avatar">🤖</div>
+            <div class="welcome-message">
+              <h3>Welcome to DICTOLE Professional Support</h3>
+              <p>I'm here to provide compassionate mental health support. You can talk about stress, anxiety, depression, relationships, work, sleep, or any mental health concerns.</p>
+              <div class="quick-actions">
+                <button class="quick-action" onclick="startQuickHelp()">💡 Get Help</button>
+                <button class="quick-action" onclick="startQuiz()">📝 Check-in Quiz</button>
+                <button class="quick-action" onclick="showTips()">🌿 Wellness Tips</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Professional Chat Input -->
+        <div class="chat-input-container">
+          <div class="chat-input">
+            <input type="text" id="chatMessage" placeholder="Type your message..." maxlength="2000" autocomplete="off">
+            <button id="sendBtn">Send</button>
+          </div>
+          <div class="chat-suggestions">
+            <span class="suggestion-text">Try asking about:</span>
+            <button class="suggestion-btn" onclick="sendSuggestion('stress')">stress</button>
+            <button class="suggestion-btn" onclick="sendSuggestion('anxiety')">anxiety</button>
+            <button class="suggestion-btn" onclick="sendSuggestion('sleep')">sleep</button>
+            <button class="suggestion-btn" onclick="sendSuggestion('relationships')">relationships</button>
+          </div>
+        </div>
+
+        <!-- Professional Status Bar -->
+        <div class="chat-status">
+          <div class="status-dot online"></div>
+          <span class="status-text">AI Assistant Online • Response time: ~1-2 seconds</span>
+        </div>
+      </div>
+      
+      <!-- Professional Emergency Section -->
+      <div class="emergency-section">
+        <h3>🚨 Need Immediate Help?</h3>
+        <div class="emergency-buttons">
+          <a href="tel:+254790076248" class="emergency-btn call-btn">📞 Call Now</a>
+          <a href="https://wa.me/254790076248" target="_blank" class="emergency-btn whatsapp-btn">💬 WhatsApp</a>
+          <button class="emergency-btn crisis-btn" onclick="showCrisisSupport()">🆘 Crisis Support</button>
+        </div>
+        <p class="emergency-note">If you're having thoughts of suicide, please call emergency services immediately.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel Overlay Background - tap to close -->
+  <div class="panel-overlay" aria-label="Tap to close panel">
+    <span class="panel-overlay-hint">Tap anywhere to close</span>
+  </div>
+
+  <!-- NAVBAR -->
+  <header>
+    <a href="#home" class="logo">
+      <img src="dictole-logo.png" alt="DICTOLE Logo" class="logo-img" />
+      <span class="logo-text">DICTOLE <span>MENTAL HEALTH FOUNDATION</span></span>
+    </a>
+    <button class="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav>
+      <div class="search-bar">
+        <input type="text" placeholder="Search...">
+        <button>Search</button>
+      </div>
+      <a href="#home" class="nav-panel" data-panel="none" data-i18n="navHome">Home</a>
+      <a href="#about" class="nav-panel" data-panel="about" data-i18n="navAbout">About</a>
+      <a href="#program" class="nav-panel" data-panel="services" data-i18n="navServices">Services</a>
+      <a href="#services" class="nav-panel" data-panel="mission" data-i18n="navMission">Mission/Vision</a>
+      <a href="#contact" class="nav-panel" data-panel="contact" data-i18n="navContact">Contact</a>
+      <a href="#appointment" class="nav-panel nav-appointment" data-panel="appointment" data-i18n="navBook">Book Appointment</a>
+      <button class="nav-panel nav-share" id="navShareBtn" data-panel="share">🔗 Share</button>
+      <select id="lang-select" class="lang-select" aria-label="Select language">
+        <option value="en">English</option>
+        <option value="sw">Kiswahili</option>
+      </select>
+      <a href="#pictorial" class="nav-panel" data-panel="pictorial">Pictorial</a>
+      <a href="#chat" class="nav-panel" data-panel="chat">💬 Chat</a>
+    </nav>
+  </header>
+
+  <!-- HERO with Advanced Canvas Background -->
+  <section id="home" class="hero">
+    <canvas id="hero-canvas" class="hero-canvas" aria-hidden="true"></canvas>
+    <div class="hero-bg-image"></div>
+    
+    <!-- Floating 3D Elements -->
+    <div class="hero-3d-elements">
+      <div class="floating-card card-1">
+        <div class="card-icon">🧠</div>
+        <div class="card-title">Mental Wellness</div>
+      </div>
+      <div class="floating-card card-2">
+        <div class="card-icon">💝</div>
+        <div class="card-title">Community Support</div>
+      </div>
+      <div class="floating-card card-3">
+        <div class="card-icon">🌟</div>
+        <div class="card-title">Professional Care</div>
+      </div>
+    </div>
+    
+    <div class="hero-content reveal">
+      <h1 class="hero-title">Your Mental Health Matters</h1>
+      <p class="hero-subtitle">Reach out to us today. We're here to help you thrive.</p>
+      <div class="hero-buttons">
+        <a href="tel:+254790076248" class="btn btn-primary magnetic-btn">Call Now 📞</a>
+        <a href="#contact" class="btn btn-secondary magnetic-btn">Contact Form</a>
+        <a href="#appointment" class="nav-panel nav-appointment magnetic-btn" data-panel="appointment">Book Appointment</a>
+      </div>
+    </div>
+  </section>
+
+   <!-- ABOUT -->
+  <section id="about" class="section dark-box bg-about">
+    <div class="section-overlay"></div>
+    <div class="section-content">
+      <div class="about-container reveal">
+        <h2>About DICTOLE Mental Health Foundation</h2>
+        <p>
+         The DICTOLE Mental Health Foundation is a non-profit organization dedicated to promoting
+         mental well-being, increasing awareness about mental health concerns, and offering essential resources
+         to individuals and communities facing mental health challenges. Established in 2024, the foundation's purpose
+         is to empower individuals and communities by raising mental health awareness, providing accessible mental health services, developing
+         compassionate support networks, and advocating for policies that enable mental health equity and inclusion for all.
+        </p>
+        <p>At DICTOLE, we believe that everyone should have access to the support, understanding, and care required to live happy, meaningful lives—since mental health is equally as vital as physical health. We offer a variety of services, including:</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- PROGRAM -->
+  <section id="program" class="section dark-box bg-program">
+    <div class="section-overlay"></div>
+    <div class="section-content">
+      <h2 class="reveal">Mental Health Services</h2>
+      <p class="reveal reveal-delay-1">
+        Our services focus on emotional balance, stress management, and personal growth through guided therapy and support systems.
+      </p>
+
+      <div class="cards">
+        <div class="card reveal reveal-delay-1">
+          <h3>Educational Outreach & Awareness</h3>
+          <p>One-on-one and group therapy with licensed professionals.</p>
+        </div>
+        <div class="card reveal reveal-delay-2">
+          <h3>Support Services</h3>
+          <p>Mindfulness, resilience, and self-care training.</p>
+        </div>
+        <div class="card reveal reveal-delay-3">
+          <h3>Advocacy</h3>
+          <p>Always available when you need someone to talk to.</p>
+        </div>
+
+        <div class="card reveal reveal-delay-4">
+          <h3>Community Engagement</h3>
+          <p>Workshops, webinars, and community events.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="section image-section bg-mission">
+    <div class="section-overlay"></div>
+    <div class="section-content">
+      <h2 class="reveal">Mission · Vision · Goals · Values</h2>
+      
+      <!-- Enhanced Mission/Vision Section -->
+      <div class="mission-enhanced-container reveal">
+        <!-- Animated Background Elements -->
+        <div class="mission-bg-animation">
+          <div class="floating-icon icon-1">🧠</div>
+          <div class="floating-icon icon-2">💝</div>
+          <div class="floating-icon icon-3">🌟</div>
+          <div class="floating-icon icon-4">🤝</div>
+          <div class="floating-icon icon-5">🌈</div>
+          <div class="floating-icon icon-6">💪</div>
+        </div>
+
+        <!-- Main Mission Display -->
+        <div class="mission-main-display">
+          <div class="mission-central-card">
+            <div class="mission-icon-large">🌟</div>
+            <h3 class="mission-title">Our Foundation</h3>
+            <p class="mission-subtitle">Empowering minds, transforming lives</p>
+          </div>
+        </div>
+
+        <!-- Interactive Mission Cards -->
+        <div class="mission-interactive-grid">
+          <div class="mission-card-enhanced mission-card-mission" data-mission="mission">
+            <div class="card-glow"></div>
+            <div class="card-content">
+              <div class="card-icon">🎯</div>
+              <h4>MISSION</h4>
+              <p>To empower individuals and communities by raising mental health awareness, providing accessible mental health services, and developing compassionate support networks.</p>
+              <div class="card-features">
+                <span class="feature-tag">Awareness</span>
+                <span class="feature-tag">Accessibility</span>
+                <span class="feature-tag">Support</span>
+              </div>
+            </div>
+            <div class="card-hover-effect"></div>
+          </div>
+
+          <div class="mission-card-enhanced mission-card-vision" data-mission="vision">
+            <div class="card-glow"></div>
+            <div class="card-content">
+              <div class="card-icon">🔮</div>
+              <h4>VISION</h4>
+              <p>To create a world where every individual has access to the support and resources needed to achieve mental well-being, free from stigma and barriers.</p>
+              <div class="card-features">
+                <span class="feature-tag">Inclusion</span>
+                <span class="feature-tag">Equity</span>
+                <span class="feature-tag">Wellness</span>
+              </div>
+            </div>
+            <div class="card-hover-effect"></div>
+          </div>
+
+          <div class="mission-card-enhanced mission-card-goals" data-mission="goals">
+            <div class="card-glow"></div>
+            <div class="card-content">
+              <div class="card-icon">🎯</div>
+              <h4>GOALS</h4>
+              <p>Fostering supportive environments, promoting education, and advocating for mental health policies that benefit everyone in our community.</p>
+              <div class="card-features">
+                <span class="feature-tag">Education</span>
+                <span class="feature-tag">Advocacy</span>
+                <span class="feature-tag">Community</span>
+              </div>
+            </div>
+            <div class="card-hover-effect"></div>
+          </div>
+
+          <div class="mission-card-enhanced mission-card-values" data-mission="values">
+            <div class="card-glow"></div>
+            <div class="card-content">
+              <div class="card-icon">💎</div>
+              <h4>VALUES</h4>
+              <p>Compassion, integrity, inclusivity, respect, and empowerment guide everything we do in creating safe spaces for healing.</p>
+              <div class="card-features">
+                <span class="feature-tag">Compassion</span>
+                <span class="feature-tag">Integrity</span>
+                <span class="feature-tag">Respect</span>
+              </div>
+            </div>
+            <div class="card-hover-effect"></div>
+          </div>
+        </div>
+
+        <!-- Progress Indicators -->
+        <div class="mission-progress-bar">
+          <div class="progress-segment active" data-segment="mission"></div>
+          <div class="progress-segment" data-segment="vision"></div>
+          <div class="progress-segment" data-segment="goals"></div>
+          <div class="progress-segment" data-segment="values"></div>
+        </div>
+
+        <!-- Interactive Quote Display -->
+        <div class="mission-quote-display">
+          <div class="quote-text">"Mental health is not a destination, but a process. It's about how you drive, not where you're going."</div>
+          <div class="quote-author">- Noam Shpancer, PhD</div>
+        </div>
+      </div>
+
+      <!-- Original 3D Carousel (Hidden as backup) -->
+      <div class="mission-3d-wrapper reveal" id="mission3dWrapper" style="display: none;">
+        <div class="mission-3d-carousel" id="mission3dCarousel">
+          <div class="mission-card" data-index="0">
+            <div class="mission-card-inner">
+              <img src="https://images.unsplash.com/photo-1527137342181-19aab11a8ee8" alt="Mission" />
+              <h3>MISSION</h3>
+              <p>To empower individuals and communities by raising mental health awareness, providing accessible mental health services, developing compassionate support networks, and pushing for policies that enable mental health equity and inclusion for all.</p>
+            </div>
+          </div>
+          <div class="mission-card" data-index="1">
+            <div class="mission-card-inner">
+              <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773" alt="Vision" />
+              <h3>VISION</h3>
+              <p>To create a world where every individual has access to the support and resources needed to achieve mental well-being, free from stigma and barriers.</p>
+            </div>
+          </div>
+          <div class="mission-card" data-index="2">
+            <div class="mission-card-inner">
+              <img src="https://images.unsplash.com/photo-1499209974431-9dddcece7f88" alt="Goals" />
+              <h3>GOALS</h3>
+              <p>Our goals include fostering a supportive environment, promoting education, and advocating for mental health policies that benefit everyone.</p>
+            </div>
+          </div>
+          <div class="mission-card" data-index="3">
+            <div class="mission-card-inner">
+              <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac" alt="Values" />
+              <h3>VALUES</h3>
+              <p>Compassion, integrity, inclusivity, respect, and empowerment guide everything we do. We are committed to creating safe, non-judgmental spaces for healing and growth.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ 
+  
+
+  <!-- CONTACT -->
+  <section id="contact" class="section contact bg-contact">
+    <div class="section-overlay"></div>
+    <div class="section-content">
+      <h2 class="reveal">Contact Us</h2>
+      <p>Call us directly or leave your message below and we’ll get back to you.</p>
+      <p>📞 +2547 90076248</p>
+      <form id="contact-form">
+        <input type="text" name="name" placeholder="Your Name" required maxlength="100" autocomplete="name" />
+        <input type="email" name="email" placeholder="Your Email" required maxlength="254" autocomplete="email" />
+        <textarea name="message" placeholder="Your Message" maxlength="5000"></textarea>
+        <button type="submit">Send Message</button>
+        <a href="tel:+254790076248" class="call-btn">📞 Call Now</a>
+      </form>
+
+      <div class="dispute-section">
+        <h3>Raise a Dispute</h3>
+        <p>If you have a conflict or issue with our services, please submit a dispute below.</p>
+        <form id="dispute-form">
+          <input type="text" name="name" placeholder="Your Name" required maxlength="100" />
+          <input type="email" name="email" placeholder="Your Email" required maxlength="254" />
+          <input type="text" name="orderId" placeholder="Order/Service ID (if applicable)" maxlength="100" />
+          <textarea name="dispute" placeholder="Describe the dispute" required maxlength="3000"></textarea>
+          <button type="submit">Submit Dispute</button>
+        </form>
+      </div>
+
+      <div class="rating-section">
+        <h3>Rate Our Services</h3>
+        <p>Help us improve by rating your experience.</p>
+        <div class="rating-stars">
+          <span class="star" data-rating="1">★</span>
+          <span class="star" data-rating="2">★</span>
+          <span class="star" data-rating="3">★</span>
+          <span class="star" data-rating="4">★</span>
+          <span class="star" data-rating="5">★</span>
+        </div>
+        <textarea id="rating-comment" placeholder="Additional comments (optional)"></textarea>
+        <button id="submit-rating">Submit Rating</button>
+      </div>
+    </div>
+  </section>
+
+<!-- SOCIAL / CONTACT BUTTONS -->
+<div class="social-buttons">
+  <a href="https://wa.me/254790076248" target="_blank" rel="noopener" class="whatsapp">💬 WhatsApp</a>
+  <a href="https://www.instagram.com/dictole_mental_health/" target="_blank" rel="noopener" class="instagram">📸 Instagram</a>
+  <a href="https://twitter.com/dictole_mhf" target="_blank" rel="noopener" class="twitter">🐦 Twitter</a>
+  <a href="https://facebook.com/mike dictole" target="_blank" rel="noopener" class="facebook">📘 Facebook</a>
+  <button class="share-btn" id="shareBtn" aria-label="Share content">🔗 Share</button>
+</div>
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/6735b1e24304e3196ad3a6e9/1fid0q5qg';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+
+
+  <!-- Newsletter Signup -->
+  <section class="newsletter-section">
+    <div class="newsletter-inner">
+      <h3 data-i18n="newsletterTitle">Stay Updated</h3>
+      <p data-i18n="newsletterDesc">Subscribe for mental health tips, events, and foundation updates.</p>
+      <form id="newsletter-form" class="newsletter-form">
+        <input type="email" name="email" data-i18n-placeholder="yourEmail" placeholder="Your email" required maxlength="254" autocomplete="email" />
+        <button type="submit" data-i18n="subscribe">Subscribe</button>
+      </form>
+      <p class="newsletter-note" data-i18n="newsletterNote">We respect your privacy. Unsubscribe anytime.</p>
+    </div>
+  </section>
+
+  <!-- Cookie Consent Banner -->
+  <div id="cookie-banner" class="cookie-banner">
+    <div class="cookie-content">
+      <h4 id="cookie-title" data-i18n="cookieTitle">We use cookies</h4>
+      <p id="cookie-desc" data-i18n="cookieDesc">We use cookies to improve your experience and analyze site traffic. By continuing, you agree to our use of cookies. <a href="#footer" data-i18n="cookiePolicy">Privacy policy</a></p>
+      <div class="cookie-actions">
+        <button type="button" id="cookie-accept" class="cookie-btn cookie-accept" data-i18n="cookieAccept">Accept</button>
+        <button type="button" id="cookie-decline" class="cookie-btn cookie-decline" data-i18n="cookieDecline">Decline</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p class="footer-text">© 2026 DICTOLE Mental Health Foundation. All Rights Reserved.</p>
+    <div class="footer-links">
+      <a href="#home">Home</a> · <a href="#about">About</a> · <a href="#program">Services</a> · <a href="#contact">Contact</a> · <a href="#pictorial" class="nav-panel" data-panel="pictorial">Pictorial</a> · <a href="#chat" class="nav-panel" data-panel="chat">Chat</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="i18n.js"></script>
+  <script src="canvas-bg.js"></script>
+  <script src="panels.js"></script>
+  <script src="cinematic.js"></script>
+  <script src="share.js"></script>
+  <script src="mission-enhanced.js"></script>
+  <script src="ultimate-chat-fix.js"></script>
+  <script src="modern-features.js"></script>
+  <script src="cookie-banner.js"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+# Block access to sensitive files
+Disallow: /auth.js
+Disallow: /chat.js
+Disallow: /script.js
+Disallow: /server.js
+
+# Allow all major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /

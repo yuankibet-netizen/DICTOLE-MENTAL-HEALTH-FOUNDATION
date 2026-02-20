@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pictorial Gallery | DICTOLE Mental Health Foundation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body class="pictorial-page page-load">
+  <header>
+    <a href="index.html" class="logo">
+      <img src="dictole-logo.png" alt="DICTOLE Logo" class="logo-img" />
+      <span class="logo-text">DICTOLE <span>MENTAL HEALTH FOUNDATION</span></span>
+    </a>
+    <button class="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#program">Services</a>
+      <a href="index.html#services">Mission/Vision</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="pictorial.html" class="pictorial-btn">Pictorial</a>
+      <a href="chat.html" class="chat-menu-btn">💬 Chat</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section (matches home) -->
+  <section class="hero pictorial-hero">
+    <div class="hero-content reveal">
+      <h1>Pictorial Gallery</h1>
+      <p>Mental health awareness through imagery. Moments of hope, healing, and connection.</p>
+      <a href="#gallery" class="btn">View Gallery</a>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section id="gallery" class="section dark-box pictorial-gallery-section">
+    <div class="section-overlay"></div>
+    <div class="section-content">
+      <h2 class="reveal">Mental Health Awareness</h2>
+      <p class="reveal reveal-delay-1">Visual stories that inspire wellness and break the stigma.</p>
+
+      <div class="gallery pictorial-gallery">
+        <div class="gallery-item reveal reveal-delay-1">
+          <img src="IMG-20260215-WA0005.jpg" alt="DICTOLE Mental Health — Community support">
+        </div>
+        <div class="gallery-item reveal reveal-delay-2">
+          <img src="IMG-20260215-WA0006.jpg" alt="DICTOLE Mental Health — Wellness and growth">
+        </div>
+        <div class="gallery-item reveal reveal-delay-3">
+          <img src="IMG-20260215-WA0007.jpg" alt="DICTOLE Mental Health — Hope and healing">
+        </div>
+        <div class="gallery-item reveal reveal-delay-2">
+          <img src="IMG-20260215-WA0006.jpg" alt="DICTOLE Mental Health — Support">
+        </div>
+        <div class="gallery-item reveal reveal-delay-3">
+          <img src="IMG-20260215-WA0007.jpg" alt="DICTOLE Mental Health — Together">
+        </div>
+        <div class="gallery-item reveal reveal-delay-1">
+          <img src="IMG-20260215-WA0005.jpg" alt="DICTOLE Mental Health — Awareness">
+        </div>
+        <div class="gallery-item reveal reveal-delay-3">
+          <img src="IMG-20260215-WA0007.jpg" alt="DICTOLE Mental Health — Care">
+        </div>
+        <div class="gallery-item reveal reveal-delay-1">
+          <img src="IMG-20260215-WA0005.jpg" alt="DICTOLE Mental Health — Community">
+        </div>
+        <div class="gallery-item reveal reveal-delay-2">
+          <img src="IMG-20260215-WA0006.jpg" alt="DICTOLE Mental Health — Wellbeing">
+        </div>
+      </div>
+
+      <p class="gallery-credit reveal">DICTOLE Mental Health Foundation — Moments of impact.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p class="footer-text">© 2026 DICTOLE Mental Health Foundation</p>
+    <div class="footer-links">
+      <a href="index.html">Home</a> · <a href="index.html#about">About</a> · <a href="index.html#contact">Contact</a> · <a href="chat.html">Chat</a>
+    </div>
+  </footer>
+
+  <div class="social-buttons">
+    <a href="https://wa.me/254790076248" target="_blank" rel="noopener" class="whatsapp">💬 WhatsApp</a>
+    <a href="https://instagram.com/laudnoiz" target="_blank" rel="noopener" class="instagram">📸 Instagram</a>
+    <a href="https://twitter.com/laudnoiz" target="_blank" rel="noopener" class="twitter">🐦 Twitter</a>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    // GSAP gallery hover animations
+    gsap.utils.toArray('.gallery-item img').forEach(img => {
+      img.addEventListener('mouseenter', () => {
+        gsap.to(img, { scale: 1.05, duration: 0.3, ease: 'power2.out' });
+      });
+      img.addEventListener('mouseleave', () => {
+        gsap.to(img, { scale: 1, duration: 0.3, ease: 'power2.out' });
+      });
+    });
+  </script>
+</body>
+</html>

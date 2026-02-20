@@ -1,0 +1,84 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: url("https://images.unsplash.com/photo-1506126613408-eca07ce68773")
+    no-repeat center center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.auth-box {
+  width: 360px;
+  padding: 30px;
+  background: linear-gradient(135deg, maroon 50%, white 50%);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.auth-box h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: black;
+}
+
+.auth-box input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 6px;
+}
+
+.auth-box button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 6px;
+  background: black;
+  color: gold;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.auth-box p {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.auth-box span {
+  color: maroon;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#registerForm {
+  display: none;
+}
+.google-btn {
+  background: white;
+  color: #444;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid #ddd;
+}
+
+.google-btn img {
+  width: 20px;
+}
