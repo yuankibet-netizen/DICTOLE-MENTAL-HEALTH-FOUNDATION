@@ -167,8 +167,10 @@ async function submitContactForm(data) {
         throw err;
       }
       if (err.name === 'TypeError' || err.message?.includes('fetch')) {
-        lastError = 'Cannot reach server. Run "npm start" and open http://localhost:3000';
+        // Silently handle fetch errors on static hosting
+        continue;
       }
+      lastError = err.message || lastError;
     }
   }
   throw new Error(lastError);

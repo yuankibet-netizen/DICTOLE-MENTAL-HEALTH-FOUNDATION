@@ -16,3 +16,6 @@ Allow: /
 
 User-agent: Slurp
 Allow: /
+
+# Sitemap location
+Sitemap: https://yuankibet-netizen.github.io/DICTOLE-MENTAL-HEALTH-FOUNDATION/sitemap.xml
