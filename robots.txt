@@ -1,6 +1,20 @@
 User-agent: *
 Allow: /
-Sitemap: https://example.com/sitemap.xml
 
-# Additional Directives
-# This section can include any specific rules or directives as necessary
+# Block access to sensitive server files only
+Disallow: /server.js
+Disallow: /.env
+Disallow: /node_modules/
+
+# Allow all major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Sitemap location
+Sitemap: https://yuankibet-netizen.github.io/DICTOLE-MENTAL-HEALTH-FOUNDATION/sitemap.xml
