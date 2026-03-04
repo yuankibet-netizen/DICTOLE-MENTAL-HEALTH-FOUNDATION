@@ -2768,205 +2768,348 @@ a:hover {
   background: var(--primary-light);
 }
 
-/* Enhanced Social Buttons */
-.social-buttons-enhanced {
+/* Floating Social Icons */
+.floating-social-icons {
   position: fixed;
   bottom: 30px;
   right: 30px;
-  z-index: 998;
-  animation: slide-in-right 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@keyframes slide-in-right {
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-.social-container {
-  background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%);
-  -webkit-backdrop-filter: blur(30px) saturate(150%);
-  backdrop-filter: blur(30px) saturate(150%);
-  border: 1px solid rgba(20, 184, 166, 0.2);
-  border-radius: 20px;
-  padding: 20px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-  min-width: 280px;
-}
-
-.social-header {
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.social-header h4 {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--primary);
-  margin-bottom: 8px;
-}
-
-.social-header p {
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  margin: 0;
-}
-
-.social-grid {
-  display: grid;
-  gap: 12px;
-  margin-bottom: 20px;
-}
-
-.social-btn {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 15px;
-  padding: 12px 16px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 12px;
-  color: var(--text-light);
-  text-decoration: none;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
+  z-index: 1000;
 }
 
-.social-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-  transition: left 0.6s ease;
-}
-
-.social-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
-
-.social-btn:hover::before {
-  left: 100%;
-}
-
-.whatsapp-btn:hover {
-  background: rgba(37, 211, 102, 0.2);
-  border-color: rgba(37, 211, 102, 0.3);
-}
-
-.instagram-btn:hover {
-  background: rgba(225, 48, 108, 0.2);
-  border-color: rgba(225, 48, 108, 0.3);
-}
-
-.twitter-btn:hover {
-  background: rgba(29, 161, 242, 0.2);
-  border-color: rgba(29, 161, 242, 0.3);
-}
-
-.facebook-btn:hover {
-  background: rgba(66, 103, 178, 0.2);
-  border-color: rgba(66, 103, 178, 0.3);
-}
-
-.social-icon {
-  font-size: 1.5rem;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255,255,255,0.1);
+.floating-social-btn {
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
-  transition: transform 0.3s ease;
-}
-
-.social-btn:hover .social-icon {
-  transform: scale(1.1);
-}
-
-.social-info {
-  flex: 1;
-}
-
-.social-name {
-  font-weight: 600;
-  font-size: 0.95rem;
-  display: block;
-  margin-bottom: 2px;
-}
-
-.social-desc {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-
-.social-arrow {
-  font-size: 1.2rem;
-  transition: transform 0.3s ease;
-}
-
-.social-btn:hover .social-arrow {
-  transform: translateX(5px);
-}
-
-.social-actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.share-btn-enhanced, .emergency-btn-enhanced {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 12px 16px;
-  border: none;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: floatIn 0.5s ease-out;
+  border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
-.share-btn-enhanced {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-  color: var(--bg-dark);
+.floating-social-btn:hover {
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
-.share-btn-enhanced:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(212,175,55,0.4);
+.floating-social-btn .social-icon {
+  font-size: 24px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
-.emergency-btn-enhanced {
-  background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
-  color: white;
-  animation: emergency-pulse 2s ease-in-out infinite;
+/* WhatsApp button */
+.floating-social-btn.whatsapp-btn {
+  background: linear-gradient(135deg, #25D366, #128C7E);
 }
 
-@keyframes emergency-pulse {
-  0%, 100% { 
-    box-shadow: 0 0 0 0 rgba(239,68,68,0.7);
+/* Instagram button */
+.floating-social-btn.instagram-btn {
+  background: linear-gradient(135deg, #E4405F, #C13584, #833AB4, #F77737);
+}
+
+/* Twitter button */
+.floating-social-btn.twitter-btn {
+  background: linear-gradient(135deg, #1DA1F2, #0c85d0);
+}
+
+/* Facebook button */
+.floating-social-btn.facebook-btn {
+  background: linear-gradient(135deg, #1877F2, #0c63d4);
+}
+
+/* Floating animation */
+@keyframes floatIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  50% { 
-    box-shadow: 0 0 0 10px rgba(239,68,68,0);
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-.emergency-btn-enhanced:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 15px 40px rgba(220,38,38,0.6);
+/* Staggered animation for each icon */
+.floating-social-btn:nth-child(1) { animation-delay: 0.1s; }
+.floating-social-btn:nth-child(2) { animation-delay: 0.2s; }
+.floating-social-btn:nth-child(3) { animation-delay: 0.3s; }
+.floating-social-btn:nth-child(4) { animation-delay: 0.4s; }
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .floating-social-icons {
+    bottom: 20px;
+    right: 20px;
+    gap: 12px;
+  }
+  
+  .floating-social-btn {
+    width: 56px;
+    height: 56px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  .floating-social-btn .social-icon {
+    font-size: 22px;
+  }
+  
+  /* Enhanced touch feedback for mobile */
+  .floating-social-btn:active {
+    transform: translateY(-2px) scale(0.95);
+    transition: all 0.1s ease;
+  }
+}
+
+@media (max-width: 480px) {
+  .floating-social-icons {
+    bottom: 16px;
+    right: 16px;
+    gap: 10px;
+  }
+  
+  .floating-social-btn {
+    width: 52px;
+    height: 52px;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+  }
+  
+  .floating-social-btn .social-icon {
+    font-size: 20px;
+  }
+  
+  /* Reduce animation intensity for mobile performance */
+  .floating-social-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 360px) {
+  .floating-social-icons {
+    bottom: 12px;
+    right: 12px;
+    gap: 8px;
+  }
+  
+  .floating-social-btn {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .floating-social-btn .social-icon {
+    font-size: 18px;
+  }
+}
+
+/* Ultra-small mobile optimization */
+@media (max-width: 320px) {
+  .floating-social-icons {
+    bottom: 10px;
+    right: 10px;
+    gap: 8px;
+  }
+  
+  .floating-social-btn {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .floating-social-btn .social-icon {
+    font-size: 16px;
+  }
+}
+
+/* Android-specific optimizations */
+@media screen and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: .001dpcm) {
+  /* Android Chrome specific */
+  .floating-social-icons {
+    /* Safe area for Android navigation bars */
+    bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+    right: calc(20px + env(safe-area-inset-right, 0px));
+  }
+}
+
+/* Material Design inspired touch feedback */
+@supports (-webkit-touch-callout: none) {
+  .floating-social-btn {
+    /* Material Design ripple effect preparation */
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .floating-social-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease;
+    pointer-events: none;
+  }
+  
+  .floating-social-btn:active::after {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+/* Android viewport and density optimizations */
+@media screen and (-webkit-min-device-pixel-ratio: 1.5) {
+  .floating-social-btn {
+    /* Enhanced borders for high-density Android screens */
+    border-width: 2px;
+    box-shadow: 
+      0 4px 15px rgba(0, 0, 0, 0.2),
+      0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Android-specific touch enhancements */
+@media (pointer: coarse) and (hover: none) {
+  .floating-social-icons {
+    /* Larger spacing for Android touch accuracy */
+    gap: 16px;
+  }
+  
+  .floating-social-btn {
+    /* Material Design elevation */
+    box-shadow: 
+      0 2px 4px rgba(0, 0, 0, 0.1),
+      0 4px 8px rgba(0, 0, 0, 0.2),
+      0 0 0 1px rgba(255, 255, 255, 0.1);
+    
+    /* Android touch feedback timing */
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .floating-social-btn:active {
+    /* Material Design press state */
+    transform: translateY(1px) scale(0.98);
+    box-shadow: 
+      0 1px 2px rgba(0, 0, 0, 0.1),
+      0 2px 4px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* Android dark mode optimization */
+@media (prefers-color-scheme: dark) {
+  .floating-social-btn {
+    /* Better contrast for Android dark mode */
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 
+      0 4px 15px rgba(0, 0, 0, 0.4),
+      0 0 0 1px rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* Android-specific responsive breakpoints */
+@media screen and (max-width: 412px) {
+  /* Standard Android phones */
+  .floating-social-icons {
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    right: calc(16px + env(safe-area-inset-right, 0px));
+    gap: 12px;
+  }
+  
+  .floating-social-btn {
+    width: 54px;
+    height: 54px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  .floating-social-btn .social-icon {
+    font-size: 21px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  /* Compact Android phones */
+  .floating-social-icons {
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    right: calc(12px + env(safe-area-inset-right, 0px));
+    gap: 10px;
+  }
+  
+  .floating-social-btn {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .floating-social-btn .social-icon {
+    font-size: 19px;
+  }
+}
+
+/* Android landscape optimizations */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  .floating-social-icons {
+    bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+    right: calc(12px + env(safe-area-inset-right, 0px));
+    gap: 8px;
+  }
+  
+  .floating-social-btn {
+    width: 46px;
+    height: 46px;
+  }
+  
+  .floating-social-btn .social-icon {
+    font-size: 17px;
+  }
+}
+
+/* Android accessibility enhancements */
+@media (prefers-reduced-motion: reduce) {
+  .floating-social-btn {
+    transition: none;
+    animation: none;
+  }
+  
+  .floating-social-btn:hover,
+  .floating-social-btn:active {
+    transform: none;
+  }
+}
+
+/* Android-specific font rendering */
+@supports (font-variation-settings: normal) {
+  .floating-social-btn .social-icon {
+    /* Better emoji rendering on Android */
+    font-weight: 500;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Landscape mobile optimization */
+@media (max-width: 768px) and (orientation: landscape) {
+  .floating-social-icons {
+    bottom: 15px;
+    right: 15px;
+    gap: 8px;
+  }
+  
+  .floating-social-btn {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .floating-social-btn .social-icon {
+    font-size: 18px;
+  }
 }
 
 /* Enhanced Cookie Banner */
