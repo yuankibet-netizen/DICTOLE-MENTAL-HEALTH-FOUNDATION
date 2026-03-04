@@ -2,16 +2,8 @@
    DICTOLE - Modern Interactive Scripts
    ======================================== */
 
-// ========== PAGE LOAD & GSAP ANIMATIONS (fallback if cinematic.js not loaded) ==========
-document.addEventListener('DOMContentLoaded', () => {
-  if (typeof gsap !== 'undefined' && typeof ScrollTrigger === 'undefined' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    try {
-      gsap.fromTo('.page-load', { opacity: 0 }, { opacity: 1, duration: 0.5, ease: 'power2.out' });
-      gsap.fromTo('.hero-content', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1, delay: 0.3, ease: 'power3.out' });
-      gsap.fromTo('.hero-content .btn', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, delay: 0.8, stagger: 0.1, ease: 'power2.out' });
-    } catch (_) {}
-  }
-});
+// ========== PAGE LOAD & GSAP ANIMATIONS (disabled - hero animations removed) ==========
+// Hero section now displays without animations
 
 // ========== HAMBURGER MENU (Mobile) ==========
 const hamburger = document.querySelector('.hamburger');
@@ -146,37 +138,38 @@ function sanitizeInput(str, maxLen = 2000) {
 }
 
 // ========== FORM SUBMISSION ==========
-const EMAIL_ENDPOINTS = ['/api/send-email'];
-
+// Use enhanced form handler if available, otherwise fallback to basic function
 async function submitContactForm(data) {
-  let lastError = 'Failed to send. Please try again or call +2547 90076248.';
-  for (const url of EMAIL_ENDPOINTS) {
-    try {
-      const res = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
-      const result = await res.json().catch(() => ({}));
-      if (res.ok) return result;
-      lastError = result.error || 'Server error.';
-      if (res.status === 404) continue;
-      throw new Error(lastError);
-    } catch (err) {
-      if (err.message && !err.message.includes('Server') && !err.message.includes('Cannot reach')) {
-        throw err;
-      }
-      if (err.name === 'TypeError' || err.message?.includes('fetch')) {
-        // Silently handle fetch errors on static hosting
-        continue;
-      }
-      lastError = err.message || lastError;
-    }
+  if (window.submitContactForm && window.submitContactForm.name === 'submitContactForm') {
+    return await window.submitContactForm(data);
   }
-  throw new Error(lastError);
+  
+  // Fallback for when form-handler.js is not loaded
+  console.log('Using fallback form submission');
+  return handleFallbackSubmission(data);
+}
+
+function handleFallbackSubmission(data) {
+  const { formType = 'contact', name, email } = data;
+  const subject = encodeURIComponent(`${formType === 'newsletter' ? 'Newsletter' : formType === 'appointment' ? 'Appointment' : 'Contact'} from ${name || 'Website Visitor'}`);
+  const body = encodeURIComponent(`Form submission from website:\n\n${JSON.stringify(data, null, 2)}`);
+  
+  const mailtoLink = `mailto:dictolementalhealthfoundation@gmail.com?subject=${subject}&body=${body}`;
+  window.open(mailtoLink, '_blank');
+  
+  return { 
+    message: 'Opening your email client... Please send the email to complete your submission.',
+    fallback: true 
+  };
 }
 
 function setFormState(form, state) {
+  // Use enhanced version if available
+  if (window.setEnhancedFormState) {
+    return window.setEnhancedFormState(form, state);
+  }
+  
+  // Fallback version
   const btn = form.querySelector('button[type="submit"]');
   if (!btn) return;
   if (state === 'loading') {
@@ -189,7 +182,13 @@ function setFormState(form, state) {
   }
 }
 
-function showFormFeedback(form, type, message) {
+function showFormFeedback(form, type, message, isGmail = false) {
+  // Use enhanced version if available
+  if (window.showEnhancedFormFeedback) {
+    return window.showEnhancedFormFeedback(form, type, message, isGmail);
+  }
+  
+  // Fallback version
   let el = form.querySelector('.form-feedback');
   if (!el) {
     el = document.createElement('div');
@@ -219,8 +218,8 @@ if (contactForm) {
 
     setFormState(this, 'loading');
     try {
-      await submitContactForm({ name, email, message });
-      showFormFeedback(this, 'success', 'Message sent! We’ll get back to you soon.');
+      const result = await submitContactForm({ name, email, message });
+      showFormFeedback(this, 'success', 'Message sent! We’ll get back to you soon.', result.gmail);
       this.reset();
     } catch (err) {
       showFormFeedback(this, 'error', err.message || 'Something went wrong. Please try again or call us directly.');
@@ -251,7 +250,7 @@ if (disputeForm) {
     if (btn) { btn.disabled = true; btn.textContent = 'Submitting...'; }
     try {
       await submitContactForm({ formType: 'dispute', name, email, orderId, dispute });
-      showFormFeedback(this, 'success', 'Dispute submitted. We’ll review and respond soon.');
+      showFormFeedback(this, 'success', 'Dispute submitted. We’ll review and respond soon.', true);
       this.reset();
     } catch (err) {
       showFormFeedback(this, 'error', err.message || 'Failed to submit. Please try again.');
@@ -280,23 +279,28 @@ if (appointmentForm) {
     const time = formData.get('time') || '';
     const message = sanitizeInput(String(formData.get('message') || ''), 1000);
 
-    if (!name || !email || !service || !date) {
-      alert('Please fill in name, email, service, and date.');
+    // More lenient validation - only name and email required
+    if (!name || !email) {
+      showFormFeedback(this, 'error', 'Please provide your name and email address.');
       return;
     }
 
-    const btn = this.querySelector('button[type="submit"]');
-    const originalText = btn?.textContent;
-    if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; }
+    // Show warning for missing optional fields but still allow submission
+    if (!service || !date) {
+      console.log('Optional fields missing:', { service, date });
+    }
+
+    setEnhancedFormState(this, 'loading');
 
     try {
       await submitContactForm({ formType: 'appointment', name, email, phone, service, date, time, message });
 
-      showFormFeedback(this, 'success', 'Booking request sent successfully! We\'ll confirm your appointment by phone or email within 24 hours.');
+      showFormFeedback(this, 'success', 'Booking request sent successfully! We\'ll confirm your appointment by phone or email within 24 hours.', true);
 
       this.reset();
       if (dateInput) dateInput.setAttribute('min', new Date().toISOString().slice(0, 10));
 
+      // Close panel after successful submission
       setTimeout(() => {
         const panel = document.getElementById('panel-appointment');
         if (panel && typeof closePanel === 'function') closePanel(panel);
@@ -304,9 +308,14 @@ if (appointmentForm) {
 
     } catch (error) {
       console.error('Appointment booking error:', error);
-      alert('Failed to send booking request. Please try again or call us directly at +2547 90076248.');
+      // Don't show error for Gmail integration - it should always work
+      if (error.message && error.message.includes('Gmail')) {
+        showFormFeedback(this, 'error', 'Could not open Gmail. Please check your browser settings and try again.');
+      } else {
+        showFormFeedback(this, 'error', 'Something went wrong. Please try again or call us directly at +2547 90076248.');
+      }
     } finally {
-      if (btn) { btn.disabled = false; btn.textContent = originalText; }
+      setEnhancedFormState(this, 'idle');
     }
   });
 }
@@ -314,15 +323,39 @@ if (appointmentForm) {
 // ========== NEWSLETTER FORM ==========
 const newsletterForm = document.getElementById('newsletter-form');
 if (newsletterForm) {
+  // Check if user has already subscribed (using localStorage)
+  const subscriptionKey = 'dictole_newsletter_subscribed';
+  const maxSubscriptions = 5; // Maximum allowed subscriptions
+  
   newsletterForm.addEventListener('submit', async function (e) {
     e.preventDefault();
     const email = sanitizeInput(String(new FormData(this).get('email') || ''), 254);
     if (!email) return;
+    
+    // Check subscription count
+    const subscriptionCount = parseInt(localStorage.getItem(subscriptionKey) || '0');
+    
+    if (subscriptionCount >= maxSubscriptions) {
+      const fb = document.createElement('p');
+      fb.className = 'form-feedback form-feedback--error';
+      fb.style.marginTop = '12px';
+      fb.textContent = 'Maximum stack reached! You have reached the subscription limit.';
+      this.appendChild(fb);
+      setTimeout(() => fb.remove(), 5000);
+      return;
+    }
+    
     const btn = this.querySelector('button[type="submit"]');
     const originalText = btn?.textContent;
     if (btn) { btn.disabled = true; btn.textContent = 'Subscribing...'; }
+    
     try {
       await submitContactForm({ formType: 'newsletter', email });
+      
+      // Increment subscription count
+      const newCount = subscriptionCount + 1;
+      localStorage.setItem(subscriptionKey, newCount.toString());
+      
       const fb = document.createElement('p');
       fb.className = 'form-feedback form-feedback--success';
       fb.style.marginTop = '12px';

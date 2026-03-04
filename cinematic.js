@@ -1,27 +1,29 @@
 /* ========================================
    DICTOLE - Cinematic Motion & Interactions
    Scroll, Panels, Mouse effects
+   (Hero section animations disabled)
    ======================================== */
 
 (function() {
   'use strict';
-  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+  // Check if GSAP is available - if not, skip all cinematic effects
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+    console.log('GSAP not loaded - cinematic effects disabled');
+    return;
+  }
+  
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (prefersReduced) return;
 
   gsap.registerPlugin(ScrollTrigger);
 
-  // ========== CINEMATIC PAGE LOAD ==========
+  // ========== CINEMATIC PAGE LOAD (hero animations removed) ==========
+  // Hero section now displays without animations - content is visible immediately
   document.addEventListener('DOMContentLoaded', () => {
     gsap.fromTo('.page-load', { opacity: 0 }, { opacity: 1, duration: 0.8, ease: 'power2.out' });
-    gsap.fromTo('.hero-content', { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 1.2, delay: 0.2, ease: 'power3.out' });
-    gsap.fromTo('.hero-content h1', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.9, delay: 0.5, ease: 'power3.out' });
-    gsap.fromTo('.hero-content p', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, delay: 0.7, ease: 'power2.out' });
-    gsap.fromTo('.hero-content .btn', { opacity: 0, y: 25 }, { opacity: 1, y: 0, duration: 0.6, delay: 0.95, stagger: 0.08, ease: 'back.out(1.2)' });
-    gsap.fromTo('.floating-card', { opacity: 0, scale: 0.8, y: 40 }, { opacity: 1, scale: 1, y: 0, duration: 1, delay: 0.6, stagger: 0.12, ease: 'power3.out' });
   });
 
-  // ========== SCROLL-TRIGGERED REVEALS (Cinematic) ==========
+  // ========== SCROLL-TRIGGERED REVEALS (for sections below hero) ==========
   gsap.utils.toArray('.reveal').forEach((el, i) => {
     gsap.fromTo(el, 
       { opacity: 0, y: 60 },
@@ -39,35 +41,8 @@
     );
   });
 
-  // ========== PARALLAX HERO BACKGROUND ==========
-  const hero = document.querySelector('.hero');
-  const heroBg = document.querySelector('.hero-bg-image');
-  const heroContent = document.querySelector('.hero-content');
-  if (hero && heroBg) {
-    gsap.to(heroBg, {
-      scrollTrigger: {
-        trigger: hero,
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 1.2
-      },
-      yPercent: 25,
-      ease: 'none'
-    });
-  }
-  if (hero && heroContent) {
-    gsap.to(heroContent, {
-      scrollTrigger: {
-        trigger: hero,
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 0.8
-      },
-      y: 80,
-      opacity: 0.7,
-      ease: 'none'
-    });
-  }
+  // ========== PARALLAX HERO BACKGROUND (disabled - removed from hero section) ==========
+  // Hero section no longer has parallax effect
 
   // ========== SECTION PARALLAX (subtle depth) ==========
   gsap.utils.toArray('.section').forEach((section, i) => {

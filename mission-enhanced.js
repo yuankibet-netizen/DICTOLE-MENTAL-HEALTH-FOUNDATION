@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
     goals: {
       title: 'Our Goals',
       subtitle: 'Building supportive communities one step at a time',
-      icon: '🎯',
+      icon: '�',
       quote: 'Small actions create big changes in mental health advocacy.'
     },
     values: {

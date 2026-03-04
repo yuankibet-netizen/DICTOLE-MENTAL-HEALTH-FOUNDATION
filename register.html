@@ -4,12 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Register | DICTOLE Mental Health Foundation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="auth.css" />
   <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-auth-compat.js"></script>
 </head>
-<body>
+<body class="auth-page">
   <div class="auth-wrapper">
     <div class="auth-box">
       <h2 id="formTitle">Create Account</h2>
@@ -23,10 +26,23 @@
 
       <!-- Register Form -->
       <form id="registerForm">
+        <input type="text" id="regName" placeholder="Full Name" required />
         <input type="email" id="regEmail" placeholder="Email Address" required />
         <input type="password" id="regPassword" placeholder="Password" required />
+        <input type="password" id="regConfirmPassword" placeholder="Confirm Password" required />
+        
+        <div class="remember-me">
+          <input type="checkbox" id="agreeTerms" required />
+          <label for="agreeTerms">I agree to the Terms & Privacy Policy</label>
+        </div>
+        
         <button type="button" id="registerBtn">Register</button>
       </form>
+
+      <!-- Social Login Divider -->
+      <div class="social-divider">
+        <span>or</span>
+      </div>
 
       <!-- Google Login Button -->
       <button type="button" id="googleBtn" class="google-btn">
@@ -39,11 +55,11 @@
         <a href="login.html" id="showLogin">Login</a>
       </p>
       
-      <p style="margin-top: 10px;">
-        <a href="index.html" style="color: black; text-decoration: none;">← Back to Home</a>
+      <p style="margin-top: 15px;">
+        <a href="index.html">← Back to Home</a>
       </p>
 
-      <div class="page-links">
+      <div class="page-links" style="margin-top: 20px; text-align: center; font-size: 14px;">
         <a href="pictorial.html">Pictorial Gallery</a> | 
         <a href="chat.html">Chat</a>
       </div>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Section Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #1e3c72;
+            color: white;
+        }
+        .test-results {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .test-item {
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 5px;
+        }
+        .success {
+            color: #4CAF50;
+        }
+        .error {
+            color: #f44336;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mission Section Connection Test</h1>
+    <div class="test-results">
+        <h2>Checking Mission Card Connections...</h2>
+        <div id="test-output"></div>
+    </div>
+
+    <script>
+        // Test function to check mission connections
+        function testMissionConnections() {
+            const output = document.getElementById('test-output');
+            const results = [];
+            
+            // Check if mission cards exist
+            const missionCards = document.querySelectorAll('.mission-card-enhanced');
+            results.push(`<div class="test-item">Found ${missionCards.length} mission cards: ${missionCards.length === 4 ? '<span class="success">✓</span>' : '<span class="error">✗</span>'}</div>`);
+            
+            // Check each card's data-mission attribute
+            const expectedCards = ['mission', 'vision', 'goals', 'values'];
+            expectedCards.forEach(cardType => {
+                const card = document.querySelector(`[data-mission="${cardType}"]`);
+                const exists = card !== null;
+                results.push(`<div class="test-item">Card "${cardType}" exists: ${exists ? '<span class="success">✓</span>' : '<span class="error">✗</span>'}</div>`);
+                if (exists) {
+                    const icon = card.querySelector('.card-icon');
+                    results.push(`<div class="test-item">Card "${cardType}" has icon: ${icon ? '<span class="success">✓</span> ' + icon.textContent : '<span class="error">✗</span> Missing'}</div>`);
+                }
+            });
+            
+            // Check progress segments
+            const progressSegments = document.querySelectorAll('.progress-segment');
+            results.push(`<div class="test-item">Found ${progressSegments.length} progress segments: ${progressSegments.length === 4 ? '<span class="success">✓</span>' : '<span class="error">✗</span>'}</div>`);
+            
+            // Check each progress segment's data-segment attribute
+            expectedCards.forEach(cardType => {
+                const segment = document.querySelector(`[data-segment="${cardType}"]`);
+                const exists = segment !== null;
+                results.push(`<div class="test-item">Progress segment "${cardType}" exists: ${exists ? '<span class="success">✓</span>' : '<span class="error">✗</span>'}</div>`);
+            });
+            
+            // Check central display elements
+            const centralCard = document.querySelector('.mission-central-card');
+            const iconLarge = document.querySelector('.mission-icon-large');
+            const missionTitle = document.querySelector('.mission-title');
+            const missionSubtitle = document.querySelector('.mission-subtitle');
+            
+            results.push(`<div class="test-item">Central card exists: ${centralCard ? '<span class="success">✓</span>' : '<span class="error">✗</span>'}</div>`);
+            results.push(`<div="test-item">Large icon exists: ${iconLarge ? '<span class="success">✓</span>' : '<span class="error">✗</span>'}</div>`);
+            results.push(`<div class="test-item">Title element exists: ${missionTitle ? '<span class="success">✓</span>' : '<span class="error">✗</span>'}</div>`);
+            results.push(`<div class="test-item">Subtitle element exists: ${missionSubtitle ? '<span class="success">✓</span>' : '<span class="error">✗</span>'}</div>`);
+            
+            // Check quote elements
+            const quoteText = document.querySelector('.quote-text');
+            results.push(`<div class="test-item">Quote text exists: ${quoteText ? '<span class="success">✓</span>' : '<span class="error">✗</span>'}</div>`);
+            
+            // Display results
+            output.innerHTML = results.join('');
+            
+            // Test click functionality
+            setTimeout(() => {
+                results.push(`<div class="test-item"><strong>Testing click functionality...</strong></div>`);
+                
+                // Test vision card click
+                const visionCard = document.querySelector('[data-mission="vision"]');
+                if (visionCard) {
+                    visionCard.click();
+                    results.push(`<div class="test-item">Clicked vision card - Check console for logs</div>`);
+                }
+                
+                // Test goals card click
+                setTimeout(() => {
+                    const goalsCard = document.querySelector('[data-mission="goals"]');
+                    if (goalsCard) {
+                        goalsCard.click();
+                        results.push(`<div class="test-item">Clicked goals card - Check console for logs</div>`);
+                    }
+                    
+                    output.innerHTML = results.join('');
+                }, 1000);
+                
+            }, 2000);
+        }
+        
+        // Run test when page loads
+        window.addEventListener('load', testMissionConnections);
+    </script>
+</body>
+</html>
