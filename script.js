@@ -5,35 +5,78 @@
 // ========== PAGE LOAD & GSAP ANIMATIONS (disabled - hero animations removed) ==========
 // Hero section now displays without animations
 
-// ========== HAMBURGER MENU (Mobile) ==========
+// ========== HAMBURGER MENU — Mobile Nav Drawer ==========
 const hamburger = document.querySelector('.hamburger');
-const nav = document.querySelector('nav');
+const mobileNavDrawer = document.getElementById('mobileNavDrawer');
+const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+const mobileNavClose = document.getElementById('mobileNavClose');
 
-if (hamburger && nav) {
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    nav.classList.toggle('active');
-    document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
-  });
+function openMobileNav() {
+  if (!mobileNavDrawer) return;
+  mobileNavDrawer.classList.add('open');
+  mobileNavOverlay.classList.add('open');
+  hamburger?.classList.add('menu-open');
+  document.body.style.overflow = 'hidden';
+}
 
-  // Close menu when clicking a nav link (mobile)
-  nav.querySelectorAll('a').forEach(link => {
+function closeMobileNav() {
+  if (!mobileNavDrawer) return;
+  mobileNavDrawer.classList.remove('open');
+  mobileNavOverlay.classList.remove('open');
+  hamburger?.classList.remove('menu-open');
+  document.body.style.overflow = '';
+}
+
+if (hamburger) {
+  hamburger.addEventListener('click', openMobileNav);
+}
+
+if (mobileNavClose) {
+  mobileNavClose.addEventListener('click', closeMobileNav);
+}
+
+if (mobileNavOverlay) {
+  mobileNavOverlay.addEventListener('click', closeMobileNav);
+}
+
+// Close drawer when any mobile nav link is clicked
+if (mobileNavDrawer) {
+  mobileNavDrawer.querySelectorAll('a, button').forEach(link => {
     link.addEventListener('click', () => {
-      hamburger.classList.remove('active');
-      nav.classList.remove('active');
-      document.body.style.overflow = '';
+      setTimeout(closeMobileNav, 120); // slight delay so panel can open
     });
   });
+}
 
-  // Close menu on escape key
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && nav.classList.contains('active')) {
-      hamburger.classList.remove('active');
-      nav.classList.remove('active');
-      document.body.style.overflow = '';
+// Close on Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeMobileNav();
+});
+
+// ========== BOTTOM NAV ACTIVE STATE ==========
+const bottomNavItems = document.querySelectorAll('.bottom-nav-item');
+
+function updateBottomNavActive() {
+  const sections = ['home', 'program', 'services', 'contact'];
+  let current = 'home';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && window.scrollY >= el.offsetTop - 120) current = id;
+  });
+
+  bottomNavItems.forEach(item => {
+    const href = item.getAttribute('href');
+    if (href === `#${current}` || (current === 'home' && href === '#home')) {
+      item.classList.add('active');
+    } else if (!item.classList.contains('book-btn')) {
+      item.classList.remove('active');
     }
   });
 }
+
+window.addEventListener('scroll', updateBottomNavActive, { passive: true });
+
+
 
 // ========== HEADER SCROLL EFFECT ==========
 const header = document.querySelector('header');

@@ -1,0 +1,1053 @@
+/* =========================================================
+   DICTOLE — DESIGN V2  "NOVA"
+   Bold · Dark · Electric · Premium Mobile-First
+   ========================================================= */
+
+/* ---- NEW DESIGN TOKENS ---- */
+:root {
+  --c-bg:       #070b14;
+  --c-surface:  #0d1525;
+  --c-card:     #111827;
+  --c-border:   rgba(255,255,255,0.07);
+
+  --c-teal:     #00e5c8;
+  --c-teal-dim: rgba(0,229,200,0.18);
+  --c-teal-glow:rgba(0,229,200,0.35);
+  --c-purple:   #a78bfa;
+  --c-purple-dim:rgba(167,139,250,0.18);
+  --c-coral:    #f472b6;
+  --c-amber:    #fbbf24;
+
+  --c-text:     #f0f4ff;
+  --c-muted:    #8b9cc0;
+
+  --r-card:     20px;
+  --r-btn:      14px;
+  --r-pill:     100px;
+
+  --shadow-card: 0 4px 30px rgba(0,0,0,0.5);
+  --shadow-glow-teal: 0 0 40px rgba(0,229,200,0.25);
+  --shadow-glow-purple: 0 0 40px rgba(167,139,250,0.25);
+}
+
+/* ---- GLOBAL BASE ---- */
+body {
+  background: var(--c-bg) !important;
+  color: var(--c-text) !important;
+  font-family: 'Inter','DM Sans',sans-serif !important;
+}
+
+h1,h2,h3,h4,h5,h6 { color: var(--c-text) !important; }
+p { color: var(--c-muted) !important; }
+a { color: var(--c-teal) !important; }
+
+/* ===========================
+   HEADER & NAVIGATION
+   =========================== */
+.modern-header {
+  background: rgba(7,11,20,0.85) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  border-bottom: 1px solid rgba(0,229,200,0.12) !important;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.5) !important;
+}
+
+.logo-text { color: #fff !important; }
+.logo-text span { color: var(--c-teal) !important; }
+
+/* Desktop Navigation Layout & Pill Design */
+.main-nav {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 8px !important;
+  margin-left: auto !important;
+}
+
+.nav-group {
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
+
+.nav-link {
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  padding: 8px 12px !important;
+  background: rgba(255, 255, 255, 0.02) !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  border-radius: var(--r-pill) !important;
+  color: rgba(240, 244, 255, 0.8) !important;
+  font-size: 0.85rem !important;
+  font-weight: 500 !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+}
+
+/* Stunning glowing hover effect */
+.nav-link:hover {
+  background: rgba(0, 229, 200, 0.08) !important;
+  color: #fff !important;
+  border-color: rgba(0, 229, 200, 0.3) !important;
+  box-shadow: 0 4px 20px rgba(0, 229, 200, 0.2), inset 0 0 10px rgba(0, 229, 200, 0.1) !important;
+  transform: translateY(-2px) !important;
+}
+
+.nav-link::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent) !important;
+  transition: all 0.5s ease !important;
+}
+
+.nav-link:hover::before {
+  left: 100% !important;
+}
+
+.nav-link .nav-icon {
+  font-size: 1.15rem !important;
+  opacity: 0.7 !important;
+  transition: transform 0.3s ease, opacity 0.3s ease !important;
+}
+
+.nav-link:hover .nav-icon {
+  opacity: 1 !important;
+  transform: scale(1.1) rotate(5deg) !important;
+}
+
+/* Special Button Styling */
+.nav-appointment {
+  background: linear-gradient(135deg, var(--c-teal) 0%, #00b5a0 100%) !important;
+  color: #000 !important;
+  border: none !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 20px var(--c-teal-glow) !important;
+}
+
+.nav-appointment:hover {
+  background: linear-gradient(135deg, #00f2d3 0%, var(--c-teal) 100%) !important;
+  color: #000 !important;
+  transform: translateY(-2px) scale(1.02) !important;
+  box-shadow: 0 8px 25px var(--c-teal-glow) !important;
+}
+
+.nav-divider {
+  height: 24px !important;
+  width: 1px !important;
+  background: rgba(255,255,255,0.15) !important;
+  margin: 0 4px !important;
+}
+
+.hamburger span { background: var(--c-teal) !important; }
+
+/* ===========================
+   HERO — Complete Overhaul
+   =========================== */
+.hero {
+  /* Keep the existing hero background image/setup — just darken it */
+  min-height: 100dvh !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+}
+
+
+/* Dark overlay on top of background image — keeps photo, adds moody tint */
+.hero::before {
+  background: linear-gradient(180deg,
+    rgba(7,11,20,0.45) 0%,
+    rgba(7,11,20,0.30) 50%,
+    rgba(7,11,20,0.65) 100%) !important;
+  z-index: 1 !important;
+}
+
+/* Teal/purple glow blobs on top of the dark overlay */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 55% 45% at 10% 20%, rgba(0,229,200,0.22) 0%, transparent 55%),
+    radial-gradient(ellipse 45% 55% at 90% 75%, rgba(167,139,250,0.18) 0%, transparent 55%);
+  animation: blob-shift 12s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 2;
+}
+
+@keyframes blob-shift {
+  0%   { transform: scale(1) rotate(0deg); opacity: 0.8; }
+  100% { transform: scale(1.06) rotate(3deg); opacity: 1; }
+}
+
+/* Canvas stays visible */
+.hero-canvas { z-index: 1 !important; opacity: 0.3 !important; }
+
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 20px 24px 60px !important;
+  max-width: 540px !important;
+  margin: 0 auto !important;
+  width: 100% !important;
+}
+
+/* Badge chip above title */
+.hero-content::before {
+  content: '🧠 Mental Health Foundation';
+  display: inline-block;
+  background: rgba(0,229,200,0.1);
+  border: 1px solid rgba(0,229,200,0.3);
+  border-radius: 100px;
+  padding: 6px 18px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--c-teal) !important;
+  margin-bottom: 28px;
+}
+
+.hero-title {
+  font-family: 'Poppins','Inter',sans-serif !important;
+  font-size: clamp(2.4rem, 10vw, 3.8rem) !important;
+  font-weight: 800 !important;
+  line-height: 1.08 !important;
+  letter-spacing: -0.03em !important;
+  margin-bottom: 20px !important;
+  background: linear-gradient(135deg, #fff 30%, var(--c-teal) 70%, var(--c-purple) 100%) !important;
+  background-size: 200% 200% !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  animation: title-gradient 6s ease infinite alternate !important;
+  text-shadow: none !important;
+}
+
+@keyframes title-gradient {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+.hero-subtitle {
+  font-size: clamp(0.95rem, 4vw, 1.15rem) !important;
+  color: var(--c-muted) !important;
+  line-height: 1.7 !important;
+  margin-bottom: 36px !important;
+  max-width: 380px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Hero CTA buttons — full redesign */
+.hero-buttons {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  align-items: center !important;
+  width: 100% !important;
+  max-width: 320px !important;
+  margin: 0 auto !important;
+}
+
+.hero-buttons a,
+.hero-buttons .magnetic-btn,
+.hero-buttons .nav-appointment {
+  width: 100% !important;
+  padding: 16px 24px !important;
+  border-radius: var(--r-pill) !important;
+  font-weight: 700 !important;
+  font-size: 0.95rem !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  border: none !important;
+  transition: all 0.25s cubic-bezier(0.4,0,0.2,1) !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  letter-spacing: 0.3px !important;
+}
+
+/* Primary CTA */
+.hero-buttons a:first-child,
+.hero-buttons .btn-primary,
+.hero-buttons a[href^="tel"] {
+  background: linear-gradient(135deg, var(--c-teal) 0%, #00b5a0 100%) !important;
+  color: #000 !important;
+  -webkit-text-fill-color: #000 !important;
+  box-shadow: 0 8px 32px var(--c-teal-glow) !important;
+}
+.hero-buttons a:first-child:active {
+  transform: scale(0.97) !important;
+}
+
+/* Secondary CTA */
+.hero-buttons a:nth-child(2) {
+  background: rgba(255,255,255,0.06) !important;
+  color: var(--c-text) !important;
+  -webkit-text-fill-color: var(--c-text) !important;
+  border: 1px solid rgba(255,255,255,0.14) !important;
+}
+
+/* Tertiary CTA */
+.hero-buttons a:nth-child(3),
+.hero-buttons .nav-appointment {
+  background: var(--c-purple-dim) !important;
+  color: var(--c-purple) !important;
+  -webkit-text-fill-color: var(--c-purple) !important;
+  border: 1px solid rgba(167,139,250,0.3) !important;
+}
+
+/* ===========================
+   ABOUT SECTION
+   =========================== */
+.bg-about {
+  background-color: var(--c-surface) !important;
+}
+
+.about-container {
+  background: var(--c-card) !important;
+  border: 1px solid var(--c-border) !important;
+  border-top: 3px solid var(--c-teal) !important;
+  border-radius: var(--r-card) !important;
+  box-shadow: var(--shadow-card) !important;
+  padding: 32px !important;
+}
+
+.about-container h2 {
+  font-size: clamp(1.4rem,6vw,2rem) !important;
+  color: var(--c-text) !important;
+  text-shadow: none !important;
+}
+
+.about-container p { color: var(--c-muted) !important; }
+
+/* ===========================
+   SERVICES / PROGRAM SECTION
+   =========================== */
+.bg-program {
+  background-color: var(--c-bg) !important;
+  animation: none !important;
+}
+
+.bg-program::before { display: none !important; }
+
+.program-header { margin-bottom: 48px !important; }
+
+.program-title {
+  font-size: clamp(1.8rem,8vw,2.8rem) !important;
+  font-weight: 800 !important;
+  background: linear-gradient(135deg, var(--c-text) 0%, var(--c-teal) 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  text-shadow: none !important;
+}
+
+.program-subtitle {
+  color: var(--c-muted) !important;
+  font-size: 0.95rem !important;
+}
+
+/* Service cards — premium redesign */
+.services-grid {
+  grid-template-columns: 1fr 1fr !important;
+  gap: 16px !important;
+}
+
+.service-card.glassmorphic-card {
+  background: var(--c-card) !important;
+  border: 1px solid var(--c-border) !important;
+  backdrop-filter: none !important;
+  border-radius: var(--r-card) !important;
+  padding: 24px 18px !important;
+  min-height: 220px !important;
+  position: relative !important;
+  overflow: hidden !important;
+  box-shadow: var(--shadow-card) !important;
+  transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+}
+
+/* Colored top accent per card */
+.service-card[data-service="education"] { border-top: 3px solid var(--c-teal) !important; }
+.service-card[data-service="support"]   { border-top: 3px solid var(--c-purple) !important; }
+.service-card[data-service="wellness"]  { border-top: 3px solid var(--c-coral) !important; }
+.service-card[data-service="community"] { border-top: 3px solid var(--c-amber) !important; }
+
+.service-card.glassmorphic-card:active {
+  transform: scale(0.97) !important;
+}
+
+.card-icon-wrapper {
+  width: 56px !important;
+  height: 56px !important;
+  margin-bottom: 16px !important;
+  border-radius: 14px !important;
+}
+
+.card-icon-wrapper .card-icon {
+  font-size: 2rem !important;
+}
+
+.icon-bg {
+  border-radius: 14px !important;
+  background: rgba(0,229,200,0.12) !important;
+}
+
+.card-content h3 {
+  font-size: 0.9rem !important;
+  font-weight: 700 !important;
+  margin-bottom: 10px !important;
+  color: var(--c-text) !important;
+  -webkit-text-fill-color: var(--c-text) !important;
+  background: none !important;
+  background-clip: unset !important;
+  line-height: 1.3 !important;
+}
+
+.card-content p {
+  font-size: 0.78rem !important;
+  color: var(--c-muted) !important;
+  line-height: 1.5 !important;
+  margin-bottom: 12px !important;
+}
+
+.feature-badge {
+  font-size: 0.7rem !important;
+  padding: 4px 10px !important;
+  border-radius: 100px !important;
+  background: rgba(0,229,200,0.08) !important;
+  border: 1px solid rgba(0,229,200,0.2) !important;
+  color: var(--c-teal) !important;
+}
+
+/* Glow hover */
+.card-glow-effect { display: none !important; }
+.card-hover-layer { display: none !important; }
+
+/* ===========================
+   MISSION SECTION
+   =========================== */
+.bg-mission {
+  background-color: var(--c-surface) !important;
+  background-attachment: scroll !important;
+}
+
+.mission-header-container h2 {
+  font-size: clamp(1.4rem,6vw,2.2rem) !important;
+  background: linear-gradient(135deg, #fff 0%, var(--c-purple) 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+.mission-card-enhanced {
+  background: var(--c-card) !important;
+  border: 1px solid var(--c-border) !important;
+  border-radius: var(--r-card) !important;
+  box-shadow: var(--shadow-card) !important;
+  backdrop-filter: none !important;
+}
+
+.mission-interactive-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+  gap: 24px !important;
+  margin-top: 32px !important;
+}
+
+.mission-card-mission { border-left: 3px solid var(--c-teal) !important; }
+.mission-card-vision  { border-left: 3px solid var(--c-purple) !important; }
+.mission-card-goals   { border-left: 3px solid var(--c-coral) !important; }
+.mission-card-values  { border-left: 3px solid var(--c-amber) !important; }
+
+.card-content h4 {
+  color: var(--c-text) !important;
+  -webkit-text-fill-color: var(--c-text) !important;
+  background: none !important;
+  font-size: 1rem !important;
+}
+
+.mission-central-card {
+  background: rgba(0,229,200,0.06) !important;
+  border: 1px solid rgba(0,229,200,0.2) !important;
+  border-radius: var(--r-card) !important;
+}
+
+.mission-quote-display {
+  background: var(--c-card) !important;
+  border: 1px solid var(--c-border) !important;
+  backdrop-filter: none !important;
+}
+
+.quote-text { color: var(--c-text) !important; }
+.quote-author { color: var(--c-teal) !important; }
+
+/* ===========================
+   CONTACT SECTION
+   =========================== */
+.bg-contact {
+  background-color: var(--c-bg) !important;
+  background-image: none !important;
+  background-attachment: scroll !important;
+}
+
+.contact-header h2 {
+  font-size: clamp(1.6rem,7vw,2.2rem) !important;
+  background: linear-gradient(135deg, #fff 0%, var(--c-teal) 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+.contact-form-container {
+  background: var(--c-card) !important;
+  border: 1px solid var(--c-border) !important;
+  border-top: 3px solid var(--c-teal) !important;
+  border-radius: var(--r-card) !important;
+  box-shadow: var(--shadow-card) !important;
+}
+
+.modern-form input,
+.modern-form textarea,
+.compact-form input,
+.compact-form textarea {
+  background: rgba(255,255,255,0.04) !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  border-radius: 12px !important;
+  color: var(--c-text) !important;
+}
+
+.modern-form input:focus,
+.modern-form textarea:focus {
+  border-color: var(--c-teal) !important;
+  box-shadow: 0 0 0 3px var(--c-teal-dim) !important;
+}
+
+.btn-submit {
+  background: linear-gradient(135deg, var(--c-teal) 0%, #00b5a0 100%) !important;
+  color: #000 !important;
+  border-radius: var(--r-pill) !important;
+  font-weight: 700 !important;
+  box-shadow: 0 8px 32px var(--c-teal-glow) !important;
+}
+
+.contact-phone-card {
+  background: rgba(0,229,200,0.06) !important;
+  border: 1px solid rgba(0,229,200,0.2) !important;
+  border-radius: var(--r-card) !important;
+}
+
+.phone-icon {
+  background: var(--c-teal) !important;
+  color: #000 !important;
+}
+
+.service-card.dispute-card,
+.service-card.rating-card {
+  background: var(--c-card) !important;
+  border: 1px solid var(--c-border) !important;
+  border-top: 3px solid var(--c-purple) !important;
+  border-radius: var(--r-card) !important;
+}
+
+.btn-compact {
+  background: rgba(0,229,200,0.08) !important;
+  color: var(--c-teal) !important;
+  border: 1px solid rgba(0,229,200,0.25) !important;
+  border-radius: var(--r-pill) !important;
+}
+
+.star { color: rgba(251,191,36,0.3) !important; }
+.star.active { color: var(--c-amber) !important; }
+
+/* ===========================
+   NEWSLETTER SECTION
+   =========================== */
+.newsletter-section {
+  background: var(--c-surface) !important;
+}
+
+.newsletter-header h3 {
+  background: linear-gradient(135deg, #fff 0%, var(--c-teal) 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+.newsletter-input-group input {
+  background: rgba(255,255,255,0.04) !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  border-radius: var(--r-pill) !important;
+  color: var(--c-text) !important;
+}
+
+.newsletter-btn {
+  background: linear-gradient(135deg, var(--c-teal) 0%, #00b5a0 100%) !important;
+  color: #000 !important;
+  border-radius: var(--r-pill) !important;
+  font-weight: 700 !important;
+}
+
+.benefit-icon { color: var(--c-teal) !important; }
+
+/* ===========================
+   FOOTER
+   =========================== */
+.enhanced-footer {
+  background: var(--c-surface) !important;
+  border-top: 1px solid var(--c-border) !important;
+}
+
+.footer-brand h3 { color: var(--c-teal) !important; }
+.footer-column h4 { color: var(--c-teal) !important; }
+.footer-links a { color: var(--c-muted) !important; }
+.footer-links a:hover { color: var(--c-teal) !important; }
+.footer-social-link { border-color: var(--c-border) !important; }
+.footer-social-link:hover { background: var(--c-teal) !important; color: #000 !important; }
+.footer-copyright p { color: var(--c-muted) !important; }
+
+/* ===========================
+   OVERLAY PANELS — Nova Redesign
+   =========================== */
+.overlay-panel {
+  background: linear-gradient(170deg, rgba(13,21,37,0.99) 0%, rgba(7,11,20,0.99) 100%) !important;
+  border: 1px solid rgba(0,229,200,0.15) !important;
+  border-top: 2px solid var(--c-teal) !important;
+  box-shadow: 0 -20px 80px rgba(0,229,200,0.1), 0 -4px 30px rgba(0,0,0,0.6) !important;
+}
+
+.panel-header {
+  background: rgba(0,229,200,0.04) !important;
+  border-bottom: 1px solid rgba(0,229,200,0.1) !important;
+}
+
+.panel-header::before { background: linear-gradient(90deg, transparent, rgba(0,229,200,0.12), transparent) !important; }
+
+.panel-close {
+  background: rgba(0,229,200,0.1) !important;
+  border-color: rgba(0,229,200,0.2) !important;
+  color: var(--c-teal) !important;
+}
+
+.panel-close:hover { background: var(--c-teal) !important; color: #000 !important; }
+
+.panel-close-text {
+  background: rgba(0,229,200,0.06) !important;
+  border-color: rgba(0,229,200,0.15) !important;
+  color: var(--c-muted) !important;
+}
+
+.panel-content h2 {
+  background: linear-gradient(135deg, var(--c-text) 0%, var(--c-teal) 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+.panel-content p { color: var(--c-muted) !important; }
+
+.panel-card {
+  background: var(--c-card) !important;
+  border-color: rgba(0,229,200,0.1) !important;
+  border-radius: var(--r-card) !important;
+}
+
+.panel-card:hover {
+  border-color: rgba(0,229,200,0.3) !important;
+  box-shadow: 0 10px 30px rgba(0,229,200,0.12) !important;
+}
+
+.mission-item {
+  background: rgba(0,229,200,0.03) !important;
+  border-left-color: var(--c-teal) !important;
+  border-radius: 12px !important;
+}
+
+.mission-item h3 { color: var(--c-teal) !important; }
+
+.panel-content input,
+.panel-content select,
+.panel-content textarea {
+  background: rgba(255,255,255,0.04) !important;
+  border-color: rgba(255,255,255,0.1) !important;
+  color: var(--c-text) !important;
+  border-radius: 12px !important;
+}
+
+.panel-content input:focus,
+.panel-content select:focus,
+.panel-content textarea:focus {
+  border-color: var(--c-teal) !important;
+  box-shadow: 0 0 0 3px var(--c-teal-dim) !important;
+}
+
+.panel-content button[type="submit"] {
+  background: linear-gradient(135deg, var(--c-teal) 0%, #00b5a0 100%) !important;
+  color: #000 !important;
+  border-radius: var(--r-pill) !important;
+  font-weight: 700 !important;
+}
+
+.contact-phone { color: var(--c-teal) !important; background: rgba(0,229,200,0.08) !important; border-color: rgba(0,229,200,0.2) !important; }
+
+/* Call button in panel */
+.panel-content .call-btn {
+  background: rgba(0,229,200,0.1) !important;
+  color: var(--c-teal) !important;
+  border-radius: var(--r-pill) !important;
+  border: 1px solid rgba(0,229,200,0.25) !important;
+}
+
+/* ===========================
+   MOBILE NAV DRAWER — Nova
+   =========================== */
+.mobile-nav-drawer {
+  background: linear-gradient(170deg, #0d1525 0%, #070b14 100%) !important;
+  border-left: 1px solid rgba(0,229,200,0.15) !important;
+  box-shadow: -20px 0 80px rgba(0,0,0,0.7) !important;
+}
+
+.mobile-nav-header {
+  background: rgba(0,229,200,0.04) !important;
+  border-bottom: 1px solid rgba(0,229,200,0.12) !important;
+}
+
+.mobile-nav-brand-text { color: #fff !important; }
+.mobile-nav-brand-text span { color: var(--c-teal) !important; }
+
+.mobile-nav-close {
+  background: rgba(0,229,200,0.08) !important;
+  border-color: rgba(0,229,200,0.2) !important;
+  color: var(--c-teal) !important;
+}
+.mobile-nav-close:active { background: var(--c-teal) !important; color: #000 !important; }
+
+.mobile-nav-link {
+  color: rgba(240,244,255,0.8) !important;
+  border-radius: 14px !important;
+  font-size: 15px !important;
+}
+.mobile-nav-link:hover,
+.mobile-nav-link:active {
+  background: rgba(0,229,200,0.1) !important;
+  border-color: rgba(0,229,200,0.2) !important;
+  color: var(--c-teal) !important;
+}
+
+.mobile-nav-divider { background: rgba(255,255,255,0.06) !important; }
+
+.mobile-nav-footer .mobile-contact-btn {
+  background: linear-gradient(135deg, var(--c-teal) 0%, #00b5a0 100%) !important;
+  color: #000 !important;
+  border-radius: var(--r-pill) !important;
+  font-weight: 700 !important;
+  box-shadow: 0 8px 32px var(--c-teal-glow) !important;
+}
+
+/* ===========================
+   BOTTOM NAV — Nova Premium
+   =========================== */
+.mobile-bottom-nav {
+  background: rgba(10,14,26,0.96) !important;
+  border-top: 1px solid rgba(0,229,200,0.15) !important;
+  box-shadow: 0 -8px 40px rgba(0,0,0,0.5) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+}
+
+.bottom-nav-item {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 4px !important;
+  color: rgba(139,156,192,0.7) !important;
+  border-radius: 16px !important;
+  transition: all 0.2s ease !important;
+}
+
+.bottom-nav-item:active,
+.bottom-nav-item.active {
+  color: var(--c-teal) !important;
+}
+
+.bottom-nav-item.active::before {
+  background: var(--c-teal) !important;
+}
+
+/* Book button — electric teal pill */
+.bottom-nav-item.book-btn {
+  background: linear-gradient(135deg, var(--c-teal) 0%, #00c8b0 100%) !important;
+  color: #000 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 4px 20px var(--c-teal-glow) !important;
+  padding: 10px 16px !important;
+}
+
+.bottom-nav-item.book-btn:active { transform: scale(0.94) !important; }
+
+/* ===========================
+   FLOATING SOCIAL ICONS
+   =========================== */
+.floating-social-btn {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.08) !important;
+  border-color: rgba(255,255,255,0.12) !important;
+}
+
+/* ===========================
+   COOKIE BANNER
+   =========================== */
+.cookie-banner-enhanced {
+  background: rgba(13,21,37,0.99) !important;
+  border-top: 1px solid rgba(0,229,200,0.15) !important;
+}
+
+.cookie-accept {
+  background: linear-gradient(135deg, var(--c-teal) 0%, #00b5a0 100%) !important;
+  color: #000 !important;
+}
+
+/* ===========================
+   CTA SECTION
+   =========================== */
+.cta-content {
+  background: linear-gradient(135deg, rgba(0,229,200,0.08) 0%, rgba(167,139,250,0.06) 100%) !important;
+  border: 1px solid rgba(0,229,200,0.15) !important;
+  border-radius: var(--r-card) !important;
+}
+
+.cta-btn.primary {
+  background: linear-gradient(135deg, var(--c-teal) 0%, #00b5a0 100%) !important;
+  color: #000 !important;
+  box-shadow: 0 8px 30px var(--c-teal-glow) !important;
+}
+
+.cta-btn.secondary {
+  border-color: rgba(167,139,250,0.4) !important;
+  color: var(--c-purple) !important;
+}
+
+.cta-btn.secondary:hover {
+  background: rgba(167,139,250,0.15) !important;
+  color: var(--c-purple) !important;
+}
+
+/* ===========================
+   REVEAL ANIMATIONS — snappier
+   =========================== */
+.reveal {
+  opacity: 0 !important;
+  transform: translateY(20px) !important;
+  transition: opacity 0.45s ease, transform 0.45s ease !important;
+}
+.reveal.visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* ===========================
+   MOBILE SPECIFIC TWEAKS
+   =========================== */
+@media (max-width: 768px) {
+  /* 2-column service grid on mobile */
+  .services-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px !important;
+  }
+
+  .service-card.glassmorphic-card {
+    padding: 18px 14px !important;
+    min-height: 180px !important;
+  }
+
+  .card-icon-wrapper {
+    width: 46px !important;
+    height: 46px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .card-icon-wrapper .card-icon { font-size: 1.6rem !important; }
+
+  .card-content h3 { font-size: 0.82rem !important; }
+  .card-content p  { font-size: 0.75rem !important; display: none !important; } /* hide body text on small cards */
+
+  .card-features { display: none !important; } /* hide badges to save space */
+
+  /* Hero chip/badge */
+  .hero-content::before {
+    font-size: 10px !important;
+    padding: 5px 14px !important;
+  }
+
+  /* Sections */
+  .section-content { padding: 0 14px !important; }
+
+  /* Mission grid — 1 col */
+  .mission-interactive-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 360px) {
+  .services-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .service-card.glassmorphic-card {
+    padding: 20px 16px !important;
+    min-height: auto !important;
+  }
+  .card-content p { display: block !important; }
+}
+
+/* ===========================
+   SECTION OVERLAY TINT
+   =========================== */
+.section-overlay {
+  background: rgba(7,11,20,0.55) !important;
+}
+
+/* Title underline — nova color */
+.title-underline {
+  background: linear-gradient(90deg, var(--c-teal) 0%, var(--c-purple) 100%) !important;
+}
+
+/* Mission progress bar */
+.progress-segment { background: rgba(0,229,200,0.15) !important; }
+.progress-segment.active { background: var(--c-teal) !important; }
+
+/* Feature tags */
+.feature-tag {
+  background: rgba(0,229,200,0.08) !important;
+  border-color: rgba(0,229,200,0.2) !important;
+  color: var(--c-teal) !important;
+}
+
+/* Emergency buttons in chat */
+.emergency-btn.call-btn {
+  background: linear-gradient(135deg, var(--c-teal) 0%, #00b5a0 100%) !important;
+  color: #000 !important;
+}
+
+.emergency-btn.whatsapp-btn {
+  background: linear-gradient(135deg, #25D366, #128C7E) !important;
+}
+
+/* Quick action buttons in chat */
+.quick-action {
+  background: rgba(0,229,200,0.12) !important;
+  color: var(--c-teal) !important;
+  border-radius: var(--r-pill) !important;
+  border: 1px solid rgba(0,229,200,0.25) !important;
+}
+
+.quick-action:hover {
+  background: var(--c-teal) !important;
+  color: #000 !important;
+}
+
+/* Chat suggestions */
+.suggestion-btn {
+  border-color: rgba(0,229,200,0.2) !important;
+  color: var(--c-teal) !important;
+  border-radius: var(--r-pill) !important;
+}
+
+.suggestion-btn:hover { background: var(--c-teal) !important; color: #000 !important; }
+
+/* Chat container */
+.chat-container {
+  background: var(--c-card) !important;
+  border: 1px solid var(--c-border) !important;
+  border-radius: var(--r-card) !important;
+  box-shadow: var(--shadow-card) !important;
+}
+
+.status-dot { background: var(--c-teal) !important; }
+.status-dot.online::after { background: var(--c-teal) !important; }
+
+/* Share options */
+.share-option { 
+  background: var(--c-card) !important;
+  border: 1px solid var(--c-border) !important;
+  border-radius: var(--r-card) !important;
+  padding: 18px !important;
+  margin-bottom: 14px !important;
+}
+
+.template-btn {
+  background: rgba(0,229,200,0.08) !important;
+  border: 1px solid rgba(0,229,200,0.2) !important;
+  color: var(--c-teal) !important;
+  border-radius: var(--r-pill) !important;
+  padding: 8px 16px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  margin: 4px !important;
+}
+
+.copy-link-btn,
+.share-general-btn {
+  background: rgba(167,139,250,0.1) !important;
+  border: 1px solid rgba(167,139,250,0.25) !important;
+  color: var(--c-purple) !important;
+  border-radius: var(--r-pill) !important;
+  padding: 8px 14px !important;
+  cursor: pointer !important;
+  margin: 4px !important;
+}
+
+/* Share preview */
+.share-preview {
+  background: var(--c-card) !important;
+  border: 1px solid var(--c-border) !important;
+  border-radius: var(--r-card) !important;
+  padding: 16px !important;
+  margin-top: 16px !important;
+}
+
+/* Gallery */
+.gallery-item {
+  background: var(--c-card) !important;
+  border-color: var(--c-border) !important;
+  border-radius: var(--r-card) !important;
+}
+
+.pictorial-actions .btn {
+  background: rgba(0,229,200,0.1) !important;
+  border: 1px solid rgba(0,229,200,0.25) !important;
+  color: var(--c-teal) !important;
+  border-radius: var(--r-pill) !important;
+  padding: 12px 20px !important;
+  display: inline-block !important;
+  margin: 6px !important;
+}
+
+/* Form labels */
+.form-label { color: var(--c-muted) !important; }
+
+/* General anchor in panels */
+.panel-content a { color: var(--c-teal) !important; }
+
+/* Badge in footer */
+.badge {
+  background: rgba(0,229,200,0.06) !important;
+  border-color: rgba(0,229,200,0.15) !important;
+  color: var(--c-muted) !important;
+}
+
+.badge:hover {
+  background: rgba(0,229,200,0.12) !important;
+  color: var(--c-teal) !important;
+}

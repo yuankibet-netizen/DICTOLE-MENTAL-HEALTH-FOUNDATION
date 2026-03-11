@@ -14,6 +14,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="icon" href="dictole-logo.png" type="image/png" />
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="design-v2.css" />
   <!-- GSAP + ScrollTrigger (disabled - removing animations from hero section) -->
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script> -->
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script> -->
@@ -29,6 +30,65 @@
       }
     </style>
   </noscript>
+
+  <!-- MOBILE NAV OVERLAY (tap to close) -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+
+  <!-- MOBILE NAV DRAWER -->
+  <div class="mobile-nav-drawer" id="mobileNavDrawer" aria-label="Mobile Navigation">
+    <!-- Drawer Header -->
+    <div class="mobile-nav-header">
+      <div class="mobile-nav-brand">
+        <img src="dictole-logo.png" alt="DICTOLE Logo">
+        <div class="mobile-nav-brand-text">
+          DICTOLE
+          <span>MENTAL HEALTH FOUNDATION</span>
+        </div>
+      </div>
+      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close menu">&times;</button>
+    </div>
+
+    <!-- Drawer Links -->
+    <div class="mobile-nav-links">
+      <a href="#home" class="mobile-nav-link nav-panel" data-panel="none">
+        <span class="nav-icon">🏠</span> Home
+      </a>
+      <a href="#about" class="mobile-nav-link nav-panel" data-panel="about">
+        <span class="nav-icon">📖</span> About Us
+      </a>
+      <a href="#program" class="mobile-nav-link nav-panel" data-panel="services">
+        <span class="nav-icon">🛠️</span> Services
+      </a>
+      <a href="#services" class="mobile-nav-link nav-panel" data-panel="mission">
+        <span class="nav-icon">🎯</span> Mission & Vision
+      </a>
+      <a href="#contact" class="mobile-nav-link nav-panel" data-panel="contact">
+        <span class="nav-icon">📞</span> Contact
+      </a>
+      <div class="mobile-nav-divider"></div>
+      <a href="#pictorial" class="mobile-nav-link nav-panel" data-panel="pictorial">
+        <span class="nav-icon">🖼️</span> Gallery
+      </a>
+      <a href="#chat" class="mobile-nav-link nav-panel" data-panel="chat">
+        <span class="nav-icon">💬</span> AI Chat
+      </a>
+      <button class="mobile-nav-link nav-panel nav-share" data-panel="share">
+        <span class="nav-icon">🔗</span> Share DICTOLE
+      </button>
+      <div class="mobile-nav-divider"></div>
+      <a href="login.html" class="mobile-nav-link">
+        <span class="nav-icon">🔐</span> Login
+      </a>
+      <a href="register.html" class="mobile-nav-link">
+        <span class="nav-icon">📝</span> Register
+      </a>
+    </div>
+
+    <!-- Drawer CTA -->
+    <div class="mobile-nav-footer">
+      <a href="#appointment" class="mobile-contact-btn nav-panel" data-panel="appointment">📅 Book Appointment</a>
+    </div>
+  </div>
 
   <!-- OVERLAY PANELS -->
   <!-- About Panel - Drops from top -->
@@ -1117,6 +1177,32 @@ s0.parentNode.insertBefore(s1,s0);
     </div>
   </div>
 </footer>
+
+  <!-- MOBILE BOTTOM NAVIGATION BAR -->
+  <nav class="mobile-bottom-nav" aria-label="Mobile bottom navigation">
+    <div class="mobile-bottom-nav-inner">
+      <a href="#home" class="bottom-nav-item active" id="bnHome">
+        <span class="bottom-icon">🏠</span>
+        <span>Home</span>
+      </a>
+      <a href="#program" class="bottom-nav-item nav-panel" data-panel="services" id="bnServices">
+        <span class="bottom-icon">🛠️</span>
+        <span>Services</span>
+      </a>
+      <button class="bottom-nav-item book-btn nav-panel" data-panel="appointment" id="bnBook">
+        <span class="bottom-icon">📅</span>
+        <span>Book</span>
+      </button>
+      <a href="#chat" class="bottom-nav-item nav-panel" data-panel="chat" id="bnChat">
+        <span class="bottom-icon">💬</span>
+        <span>Chat</span>
+      </a>
+      <a href="#contact" class="bottom-nav-item nav-panel" data-panel="contact" id="bnContact">
+        <span class="bottom-icon">📞</span>
+        <span>Contact</span>
+      </a>
+    </div>
+  </nav>
 
   <script src="form-handler.js"></script>
   <script src="script.js"></script>
