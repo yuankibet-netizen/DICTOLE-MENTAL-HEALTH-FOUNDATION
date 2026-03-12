@@ -172,33 +172,123 @@
     <div class="panel-content">
       <h2 data-i18n="bookAppointment">Book an Appointment</h2>
       <p data-i18n="bookAppointmentDesc">Schedule a consultation with our mental health professionals. We’ll confirm your booking by phone or email.</p>
-      <form id="appointment-form">
-        <label for="apt-name" class="sr-only">Name</label>
-        <input id="apt-name" type="text" name="name" data-i18n-placeholder="yourName" placeholder="Your Name *" required maxlength="100" autocomplete="name" />
-        <label for="apt-email" class="sr-only">Email</label>
-        <input id="apt-email" type="email" name="email" placeholder="Your Email *" required maxlength="254" autocomplete="email" />
-        <label for="apt-phone" class="sr-only">Phone</label>
-        <input id="apt-phone" type="tel" name="phone" data-i18n-placeholder="yourPhone" placeholder="Your Phone (Optional)" maxlength="20" autocomplete="tel" />
-        <label for="apt-service">Service (Optional)</label>
-        <select id="apt-service" name="service" aria-label="Select service type">
-          <option value="" data-i18n="selectService">Select service (optional)</option>
-          <option value="therapy">Individual Therapy</option>
-          <option value="group">Group Support</option>
-          <option value="consultation">Initial Consultation</option>
-          <option value="workshop">Workshop / Webinar</option>
-        </select>
-        <label for="apt-date" class="sr-only">Preferred date</label>
-        <input id="apt-date" type="date" name="date" aria-label="Preferred date (optional)" />
-        <label for="apt-time">Preferred time (Optional)</label>
-        <select id="apt-time" name="time" aria-label="Preferred time of day">
-          <option value="">Select time (optional)</option>
-          <option value="morning">Morning (9am–12pm)</option>
-          <option value="afternoon">Afternoon (12pm–5pm)</option>
-          <option value="evening">Evening (5pm–7pm)</option>
-        </select>
-        <label for="apt-notes" class="sr-only">Additional notes</label>
-        <textarea id="apt-notes" name="message" data-i18n-placeholder="additionalNotes" placeholder="Additional notes (optional)" maxlength="1000"></textarea>
-        <button type="submit" data-i18n="requestBooking">Request Booking</button>
+      <form id="appointment-form" class="interactive-booking-form">
+        <!-- Step 1: Service & Provider Selection -->
+        <div class="booking-step active" id="booking-step-1">
+          <div class="step-header">
+            <span class="step-number">1</span>
+            <h3>Select Service</h3>
+          </div>
+          
+          <div class="service-selector">
+            <label class="service-option">
+              <input type="radio" name="service" value="therapy" checked>
+              <div class="service-card-select">
+                <span class="service-icon">🗣️</span>
+                <span class="service-name">Individual Therapy</span>
+                <span class="service-duration">50 min</span>
+              </div>
+            </label>
+            <label class="service-option">
+              <input type="radio" name="service" value="consultation">
+              <div class="service-card-select">
+                <span class="service-icon">🤝</span>
+                <span class="service-name">Free Consultation</span>
+                <span class="service-duration">15 min</span>
+              </div>
+            </label>
+            <label class="service-option">
+              <input type="radio" name="service" value="group">
+              <div class="service-card-select">
+                <span class="service-icon">👥</span>
+                <span class="service-name">Group Support</span>
+                <span class="service-duration">90 min</span>
+              </div>
+            </label>
+          </div>
+          
+          <button type="button" class="btn-next-step" onclick="nextBookingStep(2)">Continue to Date & Time →</button>
+        </div>
+
+        <!-- Step 2: Date & Time Picker -->
+        <div class="booking-step" id="booking-step-2">
+          <div class="step-header">
+            <span class="step-number">2</span>
+            <h3>Choose Date & Time</h3>
+          </div>
+          
+          <div class="calendar-container">
+            <div class="calendar-header">
+              <button type="button" class="calendar-nav prev-month" onclick="changeMonth(-1)">&lt;</button>
+              <h4 id="calendar-month-year">March 2026</h4>
+              <button type="button" class="calendar-nav next-month" onclick="changeMonth(1)">&gt;</button>
+            </div>
+            <div class="calendar-grid">
+              <div class="calendar-day-header">Su</div>
+              <div class="calendar-day-header">Mo</div>
+              <div class="calendar-day-header">Tu</div>
+              <div class="calendar-day-header">We</div>
+              <div class="calendar-day-header">Th</div>
+              <div class="calendar-day-header">Fr</div>
+              <div class="calendar-day-header">Sa</div>
+              <!-- Calendar days injected by JS -->
+              <div id="calendar-days-container" class="calendar-days"></div>
+            </div>
+            
+            <div class="time-slots-container" id="time-slots-container" style="display: none;">
+              <h5>Available Times for <span id="selected-date-display">...</span></h5>
+              <div class="time-slots-grid">
+                <!-- Time slots injected by JS based on selected date -->
+              </div>
+            </div>
+          </div>
+          
+          <input type="hidden" id="apt-date" name="date" required>
+          <input type="hidden" id="apt-time" name="time" required>
+          
+          <div class="step-actions">
+            <button type="button" class="btn-prev-step" onclick="prevBookingStep(1)">← Back</button>
+            <button type="button" class="btn-next-step" id="btn-to-step-3" onclick="nextBookingStep(3)" disabled>Your Details →</button>
+          </div>
+        </div>
+
+        <!-- Step 3: User Details -->
+        <div class="booking-step" id="booking-step-3">
+          <div class="step-header">
+            <span class="step-number">3</span>
+            <h3>Your Details</h3>
+          </div>
+          
+          <div class="booking-inputs">
+            <div class="input-group">
+              <label for="apt-name" class="sr-only">Name</label>
+              <input id="apt-name" type="text" name="name" data-i18n-placeholder="yourName" placeholder="Your Full Name *" required maxlength="100" autocomplete="name" />
+            </div>
+            <div class="input-group">
+              <label for="apt-email" class="sr-only">Email</label>
+              <input id="apt-email" type="email" name="email" placeholder="Your Email Address *" required maxlength="254" autocomplete="email" />
+            </div>
+            <div class="input-group">
+              <label for="apt-phone" class="sr-only">Phone</label>
+              <input id="apt-phone" type="tel" name="phone" data-i18n-placeholder="yourPhone" placeholder="Phone Number (Optional)" maxlength="20" autocomplete="tel" />
+            </div>
+            <div class="input-group">
+              <label for="apt-notes" class="sr-only">Additional notes</label>
+              <textarea id="apt-notes" name="message" data-i18n-placeholder="additionalNotes" placeholder="Any specific topics you'd like to discuss? (Optional)" maxlength="1000"></textarea>
+            </div>
+          </div>
+          
+          <div class="booking-summary">
+            <h4>Booking Summary</h4>
+            <p id="summary-service">Service: <span>Individual Therapy</span></p>
+            <p id="summary-datetime">Date & Time: <span>Not selected</span></p>
+          </div>
+          
+          <div class="step-actions">
+            <button type="button" class="btn-prev-step" onclick="prevBookingStep(2)">← Back</button>
+            <button type="submit" class="btn-submit-booking" data-i18n="requestBooking">Confirm Booking ✅</button>
+          </div>
+        </div>
       </form>
     </div>
   </div>
@@ -414,6 +504,15 @@
   <!-- Panel Overlay Background - tap to close -->
   <div class="panel-overlay" aria-label="Tap to close panel">
     <span class="panel-overlay-hint">Tap anywhere to close</span>
+  </div>
+
+  <!-- CRISIS ALERT BANNER -->
+  <div id="crisisBanner" class="crisis-alert-banner">
+    <div class="crisis-banner-content">
+      <span class="crisis-icon">🚨</span>
+      <p>If you or someone you know is in immediate danger or experiencing a mental health crisis, please call emergency services or our 24/7 hotline at <strong>+2547 90076248</strong> immediately.</p>
+    </div>
+    <button id="closeCrisisBanner" class="crisis-close-btn" aria-label="Dismiss alert">&times;</button>
   </div>
 
   <!-- NAVBAR -->

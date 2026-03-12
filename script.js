@@ -11,6 +11,22 @@ const mobileNavDrawer = document.getElementById('mobileNavDrawer');
 const mobileNavOverlay = document.getElementById('mobileNavOverlay');
 const mobileNavClose = document.getElementById('mobileNavClose');
 
+// ========== CRISIS ALERT BANNER ==========
+const crisisBanner = document.getElementById('crisisBanner');
+const closeCrisisBannerBtn = document.getElementById('closeCrisisBanner');
+
+if (crisisBanner && closeCrisisBannerBtn) {
+  // Check if user previously dismissed it
+  if (localStorage.getItem('dictole_crisis_banner_dismissed') === 'true') {
+    crisisBanner.style.display = 'none';
+  }
+
+  closeCrisisBannerBtn.addEventListener('click', () => {
+    crisisBanner.style.display = 'none';
+    localStorage.setItem('dictole_crisis_banner_dismissed', 'true');
+  });
+}
+
 function openMobileNav() {
   if (!mobileNavDrawer) return;
   mobileNavDrawer.classList.add('open');
@@ -91,12 +107,20 @@ window.addEventListener('scroll', () => {
 // ========== SCROLL REVEAL ANIMATIONS ==========
 const revealElements = document.querySelectorAll('.reveal');
 const revealObserver = new IntersectionObserver(
-  (entries) => {
+  (entries, observer) => {
     entries.forEach((entry) => {
-      if (entry.isIntersecting) entry.target.classList.add('visible');
+      // Add visible class when element intersects
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // Stop observing once revealed to only animate once
+        observer.unobserve(entry.target);
+      }
     });
   },
-  { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+  { 
+    threshold: 0.15, 
+    rootMargin: '0px 0px -50px 0px' 
+  }
 );
 
 revealElements.forEach((el) => revealObserver.observe(el));
@@ -303,7 +327,177 @@ if (disputeForm) {
   });
 }
 
-// ========== APPOINTMENT FORM ==========
+// ========== INTERACTIVE APPOINTMENT FORM ==========
+let currentBookingStep = 1;
+let selectedService = 'Individual Therapy';
+let selectedDate = null;
+let selectedTime = null;
+let currentDate = new Date(); // Month currently being viewed
+
+function nextBookingStep(step) {
+  // Validate step 2
+  if (step === 3 && (!selectedDate || !selectedTime)) {
+    return;
+  }
+  
+  if (step === 2) {
+    // Update selected service
+    const serviceRadio = document.querySelector('input[name="service"]:checked');
+    if (serviceRadio) {
+      selectedService = serviceRadio.nextElementSibling.querySelector('.service-name').textContent;
+      document.getElementById('summary-service').innerHTML = `Service: <span>${selectedService}</span>`;
+    }
+  }
+
+  document.querySelectorAll('.booking-step').forEach(el => el.classList.remove('active'));
+  document.getElementById(`booking-step-${step}`).classList.add('active');
+  currentBookingStep = step;
+  
+  if (step === 2 && !document.querySelector('.calendar-day')) {
+    renderCalendar();
+  }
+}
+
+function prevBookingStep(step) {
+  document.querySelectorAll('.booking-step').forEach(el => el.classList.remove('active'));
+  document.getElementById(`booking-step-${step}`).classList.add('active');
+  currentBookingStep = step;
+}
+
+function renderCalendar() {
+  const container = document.getElementById('calendar-days-container');
+  const monthYearDisplay = document.getElementById('calendar-month-year');
+  if (!container || !monthYearDisplay) return;
+
+  container.innerHTML = '';
+  
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth();
+  
+  // Format month and year display
+  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  monthYearDisplay.textContent = `${monthNames[month]} ${year}`;
+  
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const today = new Date();
+  
+  // Add empty slots before 1st of month
+  for (let i = 0; i < firstDay; i++) {
+    const emptyDay = document.createElement('div');
+    emptyDay.className = 'calendar-day empty';
+    container.appendChild(emptyDay);
+  }
+  
+  // Add days of month
+  for (let i = 1; i <= daysInMonth; i++) {
+    const dayDate = new Date(year, month, i);
+    const dayEl = document.createElement('div');
+    dayEl.className = 'calendar-day';
+    dayEl.textContent = i;
+    
+    // Disable past dates and weekends (for example)
+    const isPast = dayDate < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const isWeekend = dayDate.getDay() === 0 || dayDate.getDay() === 6;
+    
+    if (isPast || isWeekend) {
+      dayEl.classList.add('disabled');
+    } else {
+      // Check if this date was previously selected
+      if (selectedDate && 
+          selectedDate.getDate() === i && 
+          selectedDate.getMonth() === month && 
+          selectedDate.getFullYear() === year) {
+        dayEl.classList.add('active');
+      }
+      
+      dayEl.addEventListener('click', () => {
+        document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('active'));
+        dayEl.classList.add('active');
+        selectedDate = new Date(year, month, i);
+        
+        // Format date for internal hidden input
+        const yyyy = selectedDate.getFullYear();
+        const mm = String(selectedDate.getMonth() + 1).padStart(2, '0');
+        const dd = String(selectedDate.getDate()).padStart(2, '0');
+        document.getElementById('apt-date').value = `${yyyy}-${mm}-${dd}`;
+        
+        // Show available time slots
+        renderTimeSlots();
+      });
+    }
+    
+    container.appendChild(dayEl);
+  }
+}
+
+function changeMonth(delta) {
+  currentDate.setMonth(currentDate.getMonth() + delta);
+  renderCalendar();
+}
+
+function renderTimeSlots() {
+  const container = document.getElementById('time-slots-container');
+  const grid = container.querySelector('.time-slots-grid');
+  const dateDisplay = document.getElementById('selected-date-display');
+  const btnNext = document.getElementById('btn-to-step-3');
+  
+  // Format date display
+  const options = { weekday: 'short', month: 'short', day: 'numeric' };
+  dateDisplay.textContent = selectedDate.toLocaleDateString(undefined, options);
+  
+  // Clear previous slots
+  grid.innerHTML = '';
+  selectedTime = null;
+  document.getElementById('apt-time').value = '';
+  btnNext.disabled = true;
+  updateSummary();
+  
+  // Generate some fake time slots (9am to 4pm)
+  const times = ['09:00 AM', '10:00 AM', '11:30 AM', '01:00 PM', '02:30 PM', '04:00 PM'];
+  
+  times.forEach(time => {
+    // Randomly disable some slots for realism
+    if (Math.random() > 0.7) return; 
+    
+    const slot = document.createElement('div');
+    slot.className = 'time-slot';
+    slot.textContent = time;
+    
+    slot.addEventListener('click', () => {
+      document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('active'));
+      slot.classList.add('active');
+      selectedTime = time;
+      document.getElementById('apt-time').value = time;
+      btnNext.disabled = false;
+      updateSummary();
+    });
+    
+    grid.appendChild(slot);
+  });
+  
+  // If no slots generated, show a message
+  if (grid.children.length === 0) {
+    grid.innerHTML = '<p style="grid-column: 1/-1; color: var(--c-muted); font-size: 0.9rem;">No slots available on this day.</p>';
+  }
+  
+  container.style.display = 'block';
+}
+
+function updateSummary() {
+  const summaryService = document.getElementById('summary-service');
+  const summaryDatetime = document.getElementById('summary-datetime');
+  
+  summaryService.innerHTML = `Service: <span>${selectedService}</span>`;
+  
+  if (selectedDate && selectedTime) {
+    const options = { weekday: 'short', month: 'short', day: 'numeric' };
+    summaryDatetime.innerHTML = `Date & Time: <span>${selectedDate.toLocaleDateString(undefined, options)} at ${selectedTime}</span>`;
+  } else {
+    summaryDatetime.innerHTML = `Date & Time: <span>Not selected</span>`;
+  }
+}
+
 const appointmentForm = document.getElementById('appointment-form');
 if (appointmentForm) {
   const dateInput = appointmentForm.querySelector('input[name="date"]');
