@@ -154,6 +154,11 @@ function handleBotReply(msg) {
 }
 
 async function tryAIChat(msg) {
+  // Check if we are on a static host like GitHub Pages (no Node.js backend)
+  if (window.location.hostname.includes('github.io') || window.location.hostname === 'localhost' && !window.location.port) {
+    return null; // Don't even try if we know it will fail
+  }
+
   const history = conversationHistory.map((h) => ({
     role: h.role,
     content: h.content.replace(/<br\s*\/?>/gi, "\n")
@@ -165,11 +170,12 @@ async function tryAIChat(msg) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message: msg, history })
-    });
+    }).catch(() => null);
 
-    const data = await res.json();
+    if (!res) return null;
+    const data = await res.json().catch(() => null);
 
-    if (res.ok && data.reply) {
+    if (data && data.reply) {
       return data.reply;
     }
     return null;

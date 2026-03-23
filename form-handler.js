@@ -1,8 +1,6 @@
 // Enhanced Form Handler - Direct Gmail Integration
 // This file provides direct Gmail integration without server requirements
 
-console.log("form-handler.js loaded ✅");
-
 // Direct Gmail integration - no server or password needed
 async function submitContactForm(data) {
   return handleGmailSubmission(data);
