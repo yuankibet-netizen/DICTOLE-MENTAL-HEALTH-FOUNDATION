@@ -1,15 +1,2 @@
-# TODO: Fix Login Page and Separate Registration
+# TODO: Fix Google Search Console Visibility Issue\n\n## Approved Plan Steps:\n- [x] Step 1: Fix duplicate/wrong Google verification meta in index.html\n- [ ] Step 2: Validate and update sitemap.xml (current dates)\n- [ ] Step 3: Check/read netlify.toml for Netlify config (VSCode tab)\n- [ ] Step 4: Verify deployment status (GitHub Pages/Netlify)\n- [ ] Step 5: Test verification file accessibility live\n- [ ] Step 6: Additional SEO/validation commands\n- [ ] Step 7: Complete - attempt_completion
 
-## Completed Tasks:
-- [x] Create login.html with login form, login.css, and login.js
-- [x] Create register.js for registration logic
-- [x] Edit register.html: remove login form and toggle logic, redirect to login.html after registration
-- [x] Edit index.html: add "Login" link in navbar
-- [x] Modify login.js: remove registration handling
-- [x] Test the flow: register -> login.html -> index.html
-
-## Current Tasks (to be completed):
-- [x] Create login.html (dedicated login page)
-- [x] Create register.html (dedicated registration page)
-- [x] Edit index.html to add Login link in navbar
-- [x] Fix Vision/Mission section issues (content & interactive sync)
