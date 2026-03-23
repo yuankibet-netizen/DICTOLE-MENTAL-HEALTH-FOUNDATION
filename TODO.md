@@ -9,7 +9,7 @@
 - [x] Test the flow: register -> login.html -> index.html
 
 ## Current Tasks (to be completed):
-- [ ] Create login.html (dedicated login page)
-- [ ] Create register.html (dedicated registration page)
-- [ ] Edit index.html to add Login link in navbar
-- [ ] Fix Vision/Mission section issues
+- [x] Create login.html (dedicated login page)
+- [x] Create register.html (dedicated registration page)
+- [x] Edit index.html to add Login link in navbar
+- [x] Fix Vision/Mission section issues (content & interactive sync)

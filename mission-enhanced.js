@@ -14,27 +14,27 @@ document.addEventListener('DOMContentLoaded', function() {
   const missionContent = {
     mission: {
       title: 'Our Mission',
-      subtitle: 'Empowering communities through mental health awareness',
+      subtitle: 'To empower individuals and communities by raising mental health awareness, providing accessible mental health services, developing compassionate support networks, and pushing for policies that enable mental health equity and inclusion for all.',
       icon: '🎯',
-      quote: 'Together, we can break the stigma surrounding mental health.'
+      quote: 'Together, we can break the stigma surrounding mental health through awareness and equity.'
     },
     vision: {
       title: 'Our Vision',
-      subtitle: 'A world where mental wellness is accessible to all',
+      subtitle: 'To create a world where every individual has access to the support and resources needed to achieve mental well-being, free from stigma and barriers.',
       icon: '🔮',
-      quote: 'Every mind deserves the chance to thrive without barriers.'
+      quote: 'Mental wellness is a universal right, not a privilege.'
     },
     goals: {
       title: 'Our Goals',
-      subtitle: 'Building supportive communities one step at a time',
+      subtitle: 'Our goals include fostering a supportive environment, promoting education, and advocating for mental health policies that benefit everyone.',
       icon: '�',
-      quote: 'Small actions create big changes in mental health advocacy.'
+      quote: 'Setting high standards for community care and policy advocacy.'
     },
     values: {
       title: 'Our Values',
-      subtitle: 'Compassion, integrity, and empowerment guide us',
+      subtitle: 'Compassion, integrity, inclusivity, respect, and empowerment guide everything we do. We are committed to creating safe, non-judgmental spaces for healing and growth.',
       icon: '💎',
-      quote: 'We believe in treating everyone with dignity and respect.'
+      quote: 'Healing begins with compassion and safe spaces.'
     }
   };
   
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
     ripple.style.position = 'absolute';
     ripple.style.width = '20px';
     ripple.style.height = '20px';
-    ripple.style.background = 'rgba(212, 175, 55, 0.5)';
+    ripple.style.background = 'rgba(0, 229, 200, 0.4)';
     ripple.style.borderRadius = '50%';
     ripple.style.transform = 'translate(-50%, -50%)';
     ripple.style.pointerEvents = 'none';
@@ -170,13 +170,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     .mission-card-enhanced.active {
-      border-color: #d4af37 !important;
-      box-shadow: 0 25px 50px rgba(212, 175, 55, 0.4) !important;
+      border-color: #00e5c8 !important;
+      box-shadow: 0 15px 40px rgba(0, 229, 200, 0.25) !important;
     }
     
     .mission-card-enhanced.active .card-glow {
       opacity: 1 !important;
-      animation: glow-rotate 3s linear infinite !important;
+      background: radial-gradient(circle at center, rgba(0, 229, 200, 0.4) 0%, transparent 70%) !important;
+    }
+
+    .progress-segment.active {
+      background: #00e5c8 !important;
+      box-shadow: 0 0 15px rgba(0, 229, 200, 0.5) !important;
     }
   `;
   document.head.appendChild(style);
